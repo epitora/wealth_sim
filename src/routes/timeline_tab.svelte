@@ -40,7 +40,7 @@
 		const delete_id = p[key]
 		const unselected_id = p.list.find((s) => s.id !== p.first_id && s.id !== p.second_id)?.id
 		if (key === 'second_id' || unselected_id !== undefined) {
-			// @ts-ignore
+			// @ts-ignore implicit logic
 			p[key] = unselected_id
 		} else {
 			p.first_id = p.second_id!
@@ -67,7 +67,8 @@
 	<Select.Root type="single" value={p[key]} onValueChange={(id) => change_selection(key, id as Strategy_id)}>
 		<Select.Trigger
 			class="group relative grow basis-0 rounded-none border-0 border-r px-0 shadow-none hover:bg-accent"
-			size="sm">
+			size="sm"
+		>
 			{p.list.find((s) => s.id === p[key])!.label}
 			<Button
 				size="sm"
@@ -77,7 +78,8 @@
 					'group-hover:grid': p.list.length > 1
 				}}
 				onpointerdown={(e) => e.stopPropagation()}
-				onclick={() => delete_strategy(key)}>
+				onclick={() => delete_strategy(key)}
+			>
 				<X_icon class="size-3.5 text-current" />
 			</Button>
 		</Select.Trigger>
@@ -92,7 +94,8 @@
 				size="sm"
 				variant="ghost"
 				class={{ 'w-full rounded-sm font-normal': true, 'hidden': at_max }}
-				onpointerdown={() => create_strategy(key)}>
+				onpointerdown={() => create_strategy(key)}
+			>
 				<Plus_icon class="-ml-1 text-muted-foreground" />
 				New Strategy
 			</Button>
@@ -102,7 +105,8 @@
 
 <div class="relative flex h-full">
 	<div
-		class="absolute z-10 -mt-px flex w-100 origin-top-right -translate-x-full -rotate-90 flex-row-reverse border-b">
+		class="absolute z-10 -mt-px flex w-100 origin-top-right -translate-x-full -rotate-90 flex-row-reverse border-b"
+	>
 		<div class="inline-flex grow basis-0 items-center justify-center text-sm whitespace-nowrap">Life Events</div>
 		{@render Strategy_select('first_id')}
 		{#if compare}
@@ -115,7 +119,8 @@
 				'group absolute left-0 flex items-stretch rounded-none border-0 bg-transparent! p-0.5 pr-0 shadow-none': true,
 				'hidden': p.list.length === 1
 			}}
-			onpointerdown={() => (p.compare = !compare)}>
+			onpointerdown={() => (p.compare = !compare)}
+		>
 			<div class="grid w-5 place-content-center rounded-sm transition group-hover:bg-accent">
 				<Chevron_right_icon class={{ 'text-muted-foreground': true, 'hidden': compare }} />
 				<Chevron_left_icon class={{ 'text-muted-foreground': true, 'hidden': !compare }} />

@@ -27,7 +27,7 @@
 		"svelteStrictMode": true,
 		"svelteIndentScriptAndStyle": true,
 		"svelteAllowShorthand": false,
-		"svelteBracketNewLine": false,
+		"svelteBracketNewLine": true,
 		"quoteProps": "consistent"
 	},
 	"devDependencies": {

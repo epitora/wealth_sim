@@ -1,9 +1,8 @@
 <script lang="ts">
-	import * as Field from '$lib/components/ui/field/index.js'
-	import * as Select from '$lib/components/custom/shadow_select/index.js'
-	import * as Segments from '$lib/components/custom/segments'
+	import * as Field from '$lib/components/ui/field'
+	import * as Select from '$lib/components/custom/shadow_select'
+	import * as Segment from '$lib/components/custom/segmented_control'
 	import Input_row from './input_row.svelte'
-	import type { Year } from '$lib/data/persistent'
 	import { persistent, year_options } from '$lib/data/persistent'
 
 	const p = persistent.data.simulation
@@ -14,46 +13,38 @@
 		<Field.Legend>Profile</Field.Legend>
 		<Field.Group class="gap-2">
 			<Input_row label="Current year">
-				<Select.Root
-					scrollAlignment="center"
-					type="single"
-					bind:value={() => p.this_year.toString(), (v) => (p.this_year = Number(v) as Year)}>
-					<Select.Trigger size="sm" class="shadow-none">
+				<Select.Root bind:value={p.this_year}>
+					<Select.Trigger>
 						{p.this_year}
 					</Select.Trigger>
-					<Select.Content class="max-h-64">
+					<Select.Menu class="max-h-64">
 						{#each year_options.filter((y) => y < p.end_year) as year (year)}
-							{@const year_string = year.toString()}
-							<Select.Item value={year_string} label={year_string}>
+							<Select.Item value={year}>
 								{year}
 							</Select.Item>
 						{/each}
-					</Select.Content>
+					</Select.Menu>
 				</Select.Root>
 			</Input_row>
 			<Input_row label="End year">
-				<Select.Root
-					scrollAlignment="center"
-					type="single"
-					bind:value={() => p.end_year.toString(), (v) => (p.end_year = Number(v) as Year)}>
-					<Select.Trigger size="sm" class="shadow-none">
+				<Select.Root bind:value={p.end_year}>
+					<Select.Trigger>
 						{p.end_year}
 					</Select.Trigger>
-					<Select.Content class="max-h-64">
+					<Select.Menu>
 						{#each year_options.filter((y) => y > p.this_year) as year (year)}
-							{@const year_string = year.toString()}
-							<Select.Item value={year_string} label={year_string}>
+							<Select.Item value={year}>
 								{year}
 							</Select.Item>
 						{/each}
-					</Select.Content>
+					</Select.Menu>
 				</Select.Root>
 			</Input_row>
 			<Input_row label="Time reference">
-				<Segments.Root bind:value={p.age_scale}>
-					<Segments.Item value={false}>Year</Segments.Item>
-					<Segments.Item value={true}>Age</Segments.Item>
-				</Segments.Root>
+				<Segment.Root bind:value={p.age_scale}>
+					<Segment.Item value={false}>Year</Segment.Item>
+					<Segment.Item value={true}>Age</Segment.Item>
+				</Segment.Root>
 			</Input_row>
 		</Field.Group>
 	</Field.Set>
