@@ -1,22 +1,26 @@
 <script lang="ts">
+	import type { Component } from 'svelte'
 	import { set_context, type Primitive, type Root_props } from './shared.js'
 
 	let { value = $bindable(), on_change, children, class: styles = {}, ...rest }: Root_props = $props()
 
-	const uid = $props.id()
+	let page = $state<Component>()
 
 	set_context({
-		menu_id: `${uid}-menu`,
 		get value() {
 			return value
 		},
-		select_option(option_value: Primitive) {
-			value = option_value
-			on_change?.(option_value)
+		get page() {
+			return page!
+		},
+		set_tab(tab_value: Primitive, tab_page: Component) {
+			value = tab_value
+			page = tab_page
+			on_change?.(tab_value)
 		}
 	})
 </script>
 
-<div class={{ relative: true, ...styles }} {...rest}>
+<div class={{ 'relative flex h-100': true, ...styles }} {...rest}>
 	{@render children?.()}
 </div>

@@ -101,6 +101,7 @@
 @layer base {
 	* {
 		@apply border-border outline-ring/50 selection:bg-yellow-300 selection:text-black;
+		@apply transition transition-discrete duration-1000;
 	}
 	body {
 		@apply bg-background text-foreground;

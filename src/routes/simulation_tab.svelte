@@ -10,7 +10,7 @@
 
 <div class="w-full p-4">
 	<Field.Set class="w-64">
-		<Field.Legend>Profile</Field.Legend>
+		<Field.Legend>Global settings</Field.Legend>
 		<Field.Group class="gap-2">
 			<Input_row label="Current year">
 				<Select.Root bind:value={p.this_year}>
@@ -40,7 +40,7 @@
 					</Select.Menu>
 				</Select.Root>
 			</Input_row>
-			<Input_row label="Time reference">
+			<Input_row label="Time metric">
 				<Segment.Root bind:value={p.age_scale}>
 					<Segment.Item value={false}>Year</Segment.Item>
 					<Segment.Item value={true}>Age</Segment.Item>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { get_context, type Menu_props } from './shared.js'
 
-	let { children, class: styles = '', ...rest }: Menu_props = $props()
+	let { children, class: styles = {}, ...rest }: Menu_props = $props()
 
 	const context = get_context()
 
@@ -23,17 +23,15 @@
 	ontoggle={update_shadows}
 	class={{
 		'absolute box-content max-h-64 min-w-32 translate-y-1 rounded-md border shadow-md': true,
-		'animate-in fade-in-0 slide-in-from-top-5 zoom-in-95': true,
-		[styles]: true
+		'not-[:popover-open]:animate-out not-[:popover-open]:fade-out [:popover-open]:animate-in [:popover-open]:fade-in': true,
+		...styles
 	}}
 	{...rest}
 >
 	<div
 		bind:this={viewport}
 		onscroll={update_shadows}
-		class={{
-			'max-h-64 w-full overflow-y-auto p-1 [&::-webkit-scrollbar]:hidden': true
-		}}
+		class={{ 'flex max-h-64 w-full flex-col gap-0.5 overflow-y-auto p-0.5 [&::-webkit-scrollbar]:hidden': true }}
 	>
 		{@render children?.()}
 	</div>

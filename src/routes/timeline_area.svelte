@@ -15,13 +15,18 @@
 				end_year - start_year < 20 || year % 5 === 0 || year === start_year || year === end_year}
 			<div class="group relative flex h-full min-w-4 grow flex-col items-center hover:bg-accent">
 				<div
-					class="absolute top-0 w-10 origin-top-right -translate-x-[calc(50%+0.5rem)] -rotate-90 text-center font-mono text-xs text-muted-foreground group-hover:text-foreground">
-					<span class={{ 'group-hover:block': true, 'hidden': !show_year }}>{year}</span>
-					<span class={{ 'group-hover:hidden': true, 'hidden': show_year }}>•</span>
+					class="absolute top-0 w-10 origin-top-right -translate-x-[calc(50%+0.5rem)] -rotate-90 text-center font-mono text-xs text-muted-foreground group-hover:text-foreground"
+				>
+					<span class={{ 'absolute inset-0 transition-none group-hover:block': true, 'hidden': !show_year }}>
+						{year}
+					</span>
+					<span class={{ 'absolute inset-0 transition-none group-hover:hidden': true, 'hidden': show_year }}>
+						•
+					</span>
 				</div>
-				<div class="grow basis-0"></div>
-				<div class="grow basis-0 border-t"></div>
-				<div class={{ 'grow basis-0 border-t': true, 'hidden': !persistent.data.strategy.compare }}></div>
+				<div class="flex-1"></div>
+				<div class="flex-1 border-t"></div>
+				<div class={{ 'flex-1 border-t': true, 'hidden': !persistent.data.strategy.compare }}></div>
 			</div>
 		{/each}
 	</div>

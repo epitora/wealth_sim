@@ -107,7 +107,7 @@
 	<div
 		class="absolute z-10 -mt-px flex w-100 origin-top-right -translate-x-full -rotate-90 flex-row-reverse border-b"
 	>
-		<div class="inline-flex grow basis-0 items-center justify-center text-sm whitespace-nowrap">Life Events</div>
+		<div class="inline-flex flex-1 items-center justify-center text-sm whitespace-nowrap">Life Events</div>
 		{@render Strategy_select('first_id')}
 		{#if compare}
 			{@render Strategy_select('second_id')}
