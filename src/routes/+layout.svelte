@@ -30,7 +30,8 @@
 			warning: 'text-card-foreground',
 			error: 'text-destructive [&_[data-description]]:text-destructive/90 [&>svg]:text-current'
 		}
-	}}>
+	}}
+>
 	{#snippet loadingIcon()}
 		<LoaderCircleIcon class="size-4 animate-spin" />
 	{/snippet}
@@ -52,7 +53,7 @@
 	{@render children()}
 	<footer class="absolute right-4 bottom-3 z-10 mt-auto text-right text-xs text-muted-foreground/50">
 		Wealth Sim 0.1 by
-		<a class="" href="https://epitora.com" target="_blank" rel="noreferrer">Epitora</a>
+		<a class="" href="https://epitora.com" target="_blank">Epitora</a>
 		© 2025
 	</footer>
 </div>

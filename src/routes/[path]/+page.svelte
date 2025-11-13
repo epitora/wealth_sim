@@ -10,60 +10,60 @@
 	import Client from '../client_tab.svelte'
 	import Timeline from '../timeline_tab.svelte'
 	import Simulation from '../simulation_tab.svelte'
-	import * as Tabbed from '$lib/components/custom/vertical_tabs'
+	import * as Tabbed from '$lib/components/custom/tabbed_window'
 	import Chart from '../chart.svelte'
-
-	const id = $derived(persistent.data.tab_id)
 
 	type Tab = {
 		id: Tab_id
 		name: string
-		icon: typeof Icon
-		component: Component
+		Icon: typeof Icon
+		Page: Component
 	}
 
-	const tabs = [
+	const tabs: Tab[] = [
 		{
 			id: 'world',
 			name: 'World',
-			icon: Circle_dollar_sign_icon,
-			component: World
+			Icon: Circle_dollar_sign_icon,
+			Page: World
 		},
 		{
 			id: 'client',
 			name: 'Client',
-			icon: Person_standing_icon,
-			component: Client
+			Icon: Person_standing_icon,
+			Page: Client
 		},
 		{
 			id: 'timeline',
 			name: 'Timeline',
-			icon: Trending_up_icon,
-			component: Timeline
+			Icon: Trending_up_icon,
+			Page: Timeline
 		},
 		{
 			id: 'simulation',
 			name: 'Config',
-			icon: Bolt_icon,
-			component: Simulation
+			Icon: Bolt_icon,
+			Page: Simulation
 		}
-	] as const satisfies Tab[]
+	]
+
+	const p = $derived(persistent.data)
+	const active_tab = $derived(tabs.find((t) => t.id === p.tab_id)!)
 </script>
 
 <Tabbed.Root bind:value={persistent.data.tab_id}>
 	<Tabbed.Menu>
 		{#each tabs as tab}
-			<Tabbed.Item value={tab.id} page={tab.component}>
-				<tab.icon class="size-4 rotate-90" />
-				{tab.name}
-			</Tabbed.Item>
+			<Tabbed.Option value={tab.id} label={tab.name} Icon={tab.Icon} />
 		{/each}
 	</Tabbed.Menu>
-	<Tabbed.Content
+	<Tabbed.Window
 		class={{
-			'rounded-tl-none': id === tabs[0].id,
-			'rounded-bl-none': id === tabs[tabs.length - 1].id
+			'rounded-tl-none': p.tab_id === tabs[0].id,
+			'rounded-bl-none': p.tab_id === tabs[tabs.length - 1].id
 		}}
-	/>
+	>
+		<active_tab.Page />
+	</Tabbed.Window>
 </Tabbed.Root>
 <!-- <Chart /> -->

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import * as Select from '$lib/components/custom/strategy_select/index.js'
-	import { Button } from '$lib/components/ui/button/index.js'
+	import { Button as ButtonShadcn } from '$lib/components/ui/button/index.js'
+	import Button_icon from '$lib/components/custom/button_icon.svelte'
 	import type { Strategy_config, Strategy_id } from '$lib/data/persistent'
 	import { persistent, strategy_id_options } from '$lib/data/persistent'
 	import Chevron_left_icon from '@lucide/svelte/icons/chevron-left'
@@ -70,18 +71,15 @@
 			size="sm"
 		>
 			{p.list.find((s) => s.id === p[key])!.label}
-			<Button
-				size="sm"
-				variant="ghost"
-				class={{
-					'absolute right-1 hidden size-5 place-content-center rounded-full border-0 p-0! text-muted-foreground shadow-none hover:bg-destructive/15 hover:text-destructive': true,
-					'group-hover:grid': p.list.length > 1
-				}}
+			<Button_icon
 				onpointerdown={(e) => e.stopPropagation()}
 				onclick={() => delete_strategy(key)}
-			>
-				<X_icon class="size-3.5 text-current" />
-			</Button>
+				Icon={X_icon}
+				class={{
+					'absolute right-1 hidden size-5 place-content-center rounded-full border-0 p-0! text-muted-foreground hover:bg-destructive/15 hover:text-destructive': true,
+					'group-hover:grid': p.list.length > 1
+				}}
+			/>
 		</Select.Trigger>
 		<Select.Content>
 			{#each p.list as strategy (strategy.id)}
@@ -90,7 +88,7 @@
 				</Select.Item>
 			{/each}
 			<div class={{ '-mx-1 my-1 border-t': true, 'hidden': at_max }}></div>
-			<Button
+			<ButtonShadcn
 				size="sm"
 				variant="ghost"
 				class={{ 'w-full rounded-sm font-normal': true, 'hidden': at_max }}
@@ -98,34 +96,35 @@
 			>
 				<Plus_icon class="-ml-1 text-muted-foreground" />
 				New Strategy
-			</Button>
+			</ButtonShadcn>
 		</Select.Content>
 	</Select.Root>
 {/snippet}
 
 <div class="relative flex h-full">
 	<div
-		class="absolute z-10 -mt-px flex w-100 origin-top-right -translate-x-full -rotate-90 flex-row-reverse border-b"
+		class={{
+			'absolute z-10 -mt-px flex origin-top-right -translate-x-full -rotate-90 flex-row-reverse border-b transition-[width]': true,
+			'w-100': compare,
+			'w-150': !compare
+		}}
 	>
 		<div class="inline-flex flex-1 items-center justify-center text-sm whitespace-nowrap">Life Events</div>
 		{@render Strategy_select('first_id')}
-		{#if compare}
-			{@render Strategy_select('second_id')}
-		{/if}
-		<Button
-			size="sm"
-			variant="ghost"
+		{@render Strategy_select('second_id')}
+		<Button_icon
+			onpointerdown={() => (p.compare = !compare)}
+			Icon={Chevron_right_icon}
 			class={{
-				'group absolute left-0 flex items-stretch rounded-none border-0 bg-transparent! p-0.5 pr-0 shadow-none': true,
+				'group absolute flex items-stretch rounded-none border-0 bg-transparent! p-0.5 pr-0': true,
+				'left-0': compare,
+				'left-50': !compare,
 				'hidden': p.list.length === 1
 			}}
-			onpointerdown={() => (p.compare = !compare)}
-		>
-			<div class="grid w-5 place-content-center rounded-sm transition group-hover:bg-accent">
-				<Chevron_right_icon class={{ 'text-muted-foreground': true, 'hidden': compare }} />
-				<Chevron_left_icon class={{ 'text-muted-foreground': true, 'hidden': !compare }} />
-			</div>
-		</Button>
+		/>
+		<!-- <div class="grid w-5 place-content-center rounded-sm transition group-hover:bg-accent">
+			<Chevron_right_icon class={{ 'text-muted-foreground': true, '-scale-x-100': compare }} />
+		</div> -->
 	</div>
 	<div class="flex h-full w-full flex-col pl-8">
 		<Timeline_area />
