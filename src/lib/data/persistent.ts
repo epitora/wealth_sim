@@ -76,24 +76,19 @@ const month_schema = z.literal(month_options)
 export type Simulation_config = z.infer<typeof simulation_config_schema>
 const simulation_config_schema = z
 	.strictObject({
-		this_year: year_schema,
+		start_year: year_schema,
 		end_year: year_schema,
-		age_scale: z.boolean(),
+		age_metric: z.boolean(),
 	})
 	.refine((d) => {
-		const years_valid = d.end_year > d.this_year
+		const years_valid = d.end_year > d.start_year
 		return years_valid
 	})
 
-export type Birth_date = z.infer<typeof birth_date_schema>
-const birth_date_schema = z.strictObject({
-	year: birth_year_schema,
-	month: month_schema,
-})
-
 export type Client_config = z.infer<typeof simulation_config_schema>
 const client_config_schema = z.strictObject({
-	birth_date: birth_date_schema.optional(),
+	birth_year: birth_year_schema,
+	birth_month: month_schema,
 })
 
 export const schema = z
@@ -103,10 +98,6 @@ export const schema = z
 		strategy: strategy_config_schema,
 		simulation: simulation_config_schema,
 		client: client_config_schema,
-	})
-	.refine((d) => {
-		const age_scale_valid = d.simulation.age_scale === false || d.client.birth_date !== undefined
-		return age_scale_valid
 	})
 	.default({
 		version: 1,
@@ -123,11 +114,14 @@ export const schema = z
 			compare: false,
 		},
 		simulation: {
-			this_year: 2025,
+			start_year: 2025,
 			end_year: 2099,
-			age_scale: false,
+			age_metric: false,
 		},
-		client: {},
+		client: {
+			birth_year: 2000,
+			birth_month: 0,
+		},
 	})
 
 export const persistent = new Persistent<typeof schema>(schema)

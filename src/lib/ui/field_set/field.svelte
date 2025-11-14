@@ -10,7 +10,7 @@
 
 	const uid = $props.id()
 	const tooltip_id = `${uid}_tooltip`
-	const has_tooltip = $derived(description !== undefined)
+	const has_tooltip = description !== undefined
 
 	function on_enter() {
 		// @ts-ignore new api

@@ -5,14 +5,14 @@
 	let { value, label, class: class_, ...rest }: Option_props = $props()
 
 	const context = get_context()
-	const active = $derived(value === context.value)
+	const selected = $derived(value === context.value)
 </script>
 
 <button
 	onpointerdown={() => context.select_option(value)}
 	class={[
 		'flex flex-1 items-center justify-center gap-1.5 rounded-sm px-2 py-1 whitespace-nowrap hover:bg-accent',
-		active ? '' : 'text-muted',
+		selected ? '' : 'text-muted',
 		clsx(class_),
 	]}
 	{...rest}>

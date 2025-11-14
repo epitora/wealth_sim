@@ -6,15 +6,13 @@
 
 	const context = get_context()
 
-	let viewport = $state<HTMLElement>()
-	let at_top = $state(true)
-	let at_bottom = $state(true)
+	let viewport = $state<HTMLElement>()!
+	let at_start = $state(true)
+	let at_end = $state(true)
 
 	function update_shadows() {
-		if (viewport !== undefined) {
-			at_top = viewport.scrollTop === 0
-			at_bottom = viewport.scrollTop + viewport.clientHeight >= viewport.scrollHeight
-		}
+		at_start = viewport.scrollTop < 1
+		at_end = viewport.scrollTop + viewport.clientHeight > viewport.scrollHeight - 1
 	}
 </script>
 
@@ -27,22 +25,19 @@
 		clsx(class_),
 	]}
 	{...rest}>
-	<div
-		bind:this={viewport}
-		onscroll={update_shadows}
-		class={['max-h-64 w-full overflow-y-auto p-0.5 [&::-webkit-scrollbar]:hidden']}>
+	<div bind:this={viewport} onscroll={update_shadows} class={['max-h-64 w-full overflow-y-auto p-0.5']}>
 		{@render children()}
 	</div>
 	<div
 		class={[
 			'pointer-events-none absolute inset-x-0 top-0 h-6 bg-linear-to-b from-bg/90 to-transparent',
-			at_top ? 'hidden' : '',
+			at_start ? 'hidden' : '',
 		]}>
 	</div>
 	<div
 		class={[
 			'pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-linear-to-t from-bg/90 to-transparent',
-			at_bottom ? 'hidden' : '',
+			at_end ? 'hidden' : '',
 		]}>
 	</div>
 </div>

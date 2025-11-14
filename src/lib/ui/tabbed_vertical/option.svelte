@@ -6,10 +6,6 @@
 
 	const context = get_context()
 	const active = $derived(value === context.value)
-
-	if (context.value === value) {
-		context.set_value(value)
-	}
 </script>
 
 <button

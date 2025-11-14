@@ -10,10 +10,10 @@
 <div class="px-5.5 py-4">
 	<Form.Root heading="Global settings">
 		<Form.Field label="Current year" description="Start simulation on this year">
-			<Select.Root class="w-32" bind:value={p.this_year}>
-				<Select.Trigger label={p.this_year.toString()} />
+			<Select.Root class="w-32" bind:value={p.start_year}>
+				<Select.Trigger label={p.start_year.toString()} />
 				<Select.Menu class="w-32">
-					{#each year_options.filter((y) => y < p.end_year) as year (year)}
+					{#each year_options.filter((y) => y < p.end_year) as year}
 						<Select.Option value={year} label={year.toString()} />
 					{/each}
 				</Select.Menu>
@@ -23,14 +23,14 @@
 			<Select.Root class="w-32" bind:value={p.end_year}>
 				<Select.Trigger label={p.end_year.toString()} />
 				<Select.Menu class="w-32">
-					{#each year_options.filter((y) => y > p.this_year) as year (year)}
+					{#each year_options.filter((y) => y > p.start_year) as year}
 						<Select.Option value={year} label={year.toString()} />
 					{/each}
 				</Select.Menu>
 			</Select.Root>
 		</Form.Field>
 		<Form.Field label="Time metric" description="What to show on timeline and the graph">
-			<Segment.Root class="w-32" bind:value={p.age_scale}>
+			<Segment.Root class="w-32" bind:value={p.age_metric}>
 				<Segment.Option value={false} label="Year" />
 				<Segment.Option value={true} label="Age" />
 			</Segment.Root>

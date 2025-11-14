@@ -60,8 +60,8 @@
 		class={[
 			p.tab_id === tabs[0].id ? 'rounded-tl-none' : '',
 			p.tab_id === tabs[tabs.length - 1].id ? 'rounded-bl-none' : '',
-		]}
-	>
+		]}>
 		<active_tab.Page />
 	</Tabbed.Window>
 </Tabbed.Root>
+<div class="border rounded-lg grow"></div>

@@ -6,7 +6,7 @@
 	let { value, label, class: class_, ...rest }: Option_props = $props()
 
 	const context = get_context()
-	const active = $derived(value === context.value)
+	const selected = $derived(value === context.value)
 
 	function select() {
 		context.select_option(value)
@@ -19,10 +19,10 @@
 	onpointerup={select}
 	class={[
 		'relative flex w-full items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 hover:bg-accent',
-		active ? '' : 'text-muted',
+		selected ? '' : 'text-muted',
 		clsx(class_),
 	]}
 	{...rest}>
-	<Check_icon class={['absolute right-2', active ? '' : 'hidden']} />
+	<Check_icon class={['absolute right-2', selected ? '' : 'hidden']} />
 	{label}
 </button>

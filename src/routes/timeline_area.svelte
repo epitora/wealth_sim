@@ -1,31 +1,46 @@
-<!-- <script lang="ts">
-	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js'
+<script lang="ts">
 	import { persistent } from '$lib/data/persistent'
+	import { onMount } from 'svelte'
+	import Timeline_year from './timeline_year.svelte'
 
 	const p = persistent.data.simulation
-	const start_year = $derived(Number(p.this_year))
-	const end_year = $derived(Number(p.end_year))
+
+	let viewport = $state<HTMLElement>()!
+	let at_start = $state(true)
+	let at_end = $state(true)
+
+	onMount(update_shadows)
+
+	function update_shadows() {
+		at_start = viewport.scrollLeft < 1
+		at_end = viewport.scrollLeft + viewport.clientWidth > viewport.scrollWidth - 1
+	}
+
+	function scroll_horizontal(e: WheelEvent) {
+		viewport.scrollLeft += e.deltaY
+	}
 </script>
 
-<ScrollArea class="h-full w-full whitespace-nowrap" orientation="horizontal">
-	<div class="flex h-full">
-		{#each Array.from({ length: end_year - start_year + 1 }) as _, index}
-			{@const year = start_year + index}
-			{@const show_year =
-				end_year - start_year < 20 || year % 5 === 0 || year === start_year || year === end_year}
-			<div class="group relative flex h-full min-w-4 grow flex-col items-center hover:bg-accent">
-				<div
-					class="absolute top-0 w-10 origin-top-right -translate-x-[calc(50%+0.5rem)] -rotate-90 text-center font-mono text-xs text-muted group-hover:text-foreground"
-				>
-					<span class={{ 'absolute inset-0 group-hover:block': true, 'hidden': !show_year }}>
-						{year}
-					</span>
-					<span class={{ 'absolute inset-0 group-hover:hidden': true, 'hidden': show_year }}>•</span>
-				</div>
-				<div class="flex-1"></div>
-				<div class="flex-1 border-t"></div>
-				<div class={{ 'flex-1 border-t': true, 'hidden': !persistent.data.strategy.compare }}></div>
-			</div>
+<div class="relative h-full w-[calc(100%-2rem)]">
+	<div
+		class="flex h-full w-full px-0.5 overflow-x-auto"
+		bind:this={viewport}
+		onscroll={update_shadows}
+		onwheel={scroll_horizontal}>
+		{#each Array.from({ length: p.end_year - p.start_year + 1 }) as _, index}
+			<Timeline_year year={p.start_year + index} />
 		{/each}
 	</div>
-</ScrollArea> -->
+	<div
+		class={[
+			'pointer-events-none absolute inset-y-0 left-0 w-6 bg-linear-to-r from-bg/90 to-transparent',
+			at_start ? 'hidden' : '',
+		]}>
+	</div>
+	<div
+		class={[
+			'pointer-events-none absolute inset-y-0 right-0 w-6 bg-linear-to-l from-bg/90 to-transparent',
+			at_end ? 'hidden' : '',
+		]}>
+	</div>
+</div>
