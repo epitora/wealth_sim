@@ -20,8 +20,8 @@ export class Persistent<Schema extends z.ZodDefault> {
 			} catch (e) {
 				console.error(e)
 				alert_manager.show(
-					`Unable to load configuration`,
-					`The link appears to be corrupted. Loading default configuration instead.`
+					'URL is invalid',
+					'Failed to parse configuration provided by the URL. Loaded default configuration instead.'
 				)
 			}
 		}

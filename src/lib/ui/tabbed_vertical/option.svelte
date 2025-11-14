@@ -16,8 +16,8 @@
 	onpointerdown={() => context.set_value(value)}
 	data-active={active}
 	class={[
-		'flex grow items-center box-content justify-center gap-2 rounded-md border border-r-0 hover:bg-accent',
-		active ? 'w-9 -ml-0.5 rounded-r-none border-border' : 'w-8 border-transparent text-muted-foreground',
+		'flex grow items-center box-content justify-center gap-2 border border-r-0 hover:bg-accent',
+		active ? 'rounded-lg w-9 -ml-0.5 rounded-r-none border-border' : 'rounded-md w-8 border-transparent text-muted',
 		clsx(class_),
 	]}
 	{...rest}>

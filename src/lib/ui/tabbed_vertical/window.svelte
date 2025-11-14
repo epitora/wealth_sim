@@ -5,6 +5,6 @@
 	let { children, class: class_, ...rest }: Content_props = $props()
 </script>
 
-<div class={['w-full overflow-hidden rounded-md border', clsx(class_)]} {...rest}>
+<div class={['w-full overflow-hidden rounded-lg border', clsx(class_)]} {...rest}>
 	{@render children()}
 </div>

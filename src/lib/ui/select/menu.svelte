@@ -35,13 +35,13 @@
 	</div>
 	<div
 		class={[
-			'pointer-events-none absolute inset-x-0 top-0 h-6 bg-linear-to-b from-background/90 to-transparent',
+			'pointer-events-none absolute inset-x-0 top-0 h-6 bg-linear-to-b from-bg/90 to-transparent',
 			at_top ? 'hidden' : '',
 		]}>
 	</div>
 	<div
 		class={[
-			'pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-linear-to-t from-background/90 to-transparent',
+			'pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-linear-to-t from-bg/90 to-transparent',
 			at_bottom ? 'hidden' : '',
 		]}>
 	</div>

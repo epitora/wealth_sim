@@ -26,5 +26,5 @@
 	]}
 	{...rest}>
 	{label}
-	<Chevron_down_icon class="pointer-events-none absolute right-3 text-muted-foreground" />
+	<Chevron_down_icon class="pointer-events-none absolute right-3 text-muted" />
 </button>

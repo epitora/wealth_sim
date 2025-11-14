@@ -4,45 +4,31 @@ class Alert_manager {
 	description = $state<string>()
 	timer?: number
 	delay = 5000
+	dismiss_delay = 1000
 
 	show(title: string, description: string) {
 		this.title = title
 		this.description = description
 		this.open = true
-		if (this.timer !== undefined) {
-			this.cancel_close()
-		}
-		this.schedule_close()
-	}
 
-	pause() {
-		console.log('pause', this.timer, this.cancel_close)
-		this.cancel_close()
-	}
-
-	resume() {
-		console.log('resume')
+		clearTimeout(this.timer)
 		this.timer = setTimeout(() => {
 			this.timer = undefined
 			this.open = false
 		}, this.delay)
 	}
 
-	close() {
-		this.open = false
-		this.cancel_close()
-	}
-
-	cancel_close() {
+	interact() {
 		clearTimeout(this.timer)
 		this.timer = undefined
 	}
 
-	schedule_close() {
-		this.timer = setTimeout(() => {
+	dismiss() {
+		clearTimeout(this.timer)
+		setTimeout(() => {
 			this.timer = undefined
 			this.open = false
-		}, this.delay)
+		}, this.dismiss_delay)
 	}
 }
 

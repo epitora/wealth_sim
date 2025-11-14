@@ -33,7 +33,7 @@
 {/snippet}
 
 <div class="flex h-full">
-	<div class="relative flex flex-row-reverse border-r orient-vertical">
+	<div class="relative flex flex-row-reverse border-r orient-v">
 		<Toggle
 			bind:pressed={p.compare}
 			class="absolute inset-y-0 top-0 rounded-none border-0 border-b"

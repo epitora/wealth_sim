@@ -23,7 +23,7 @@
 	popover="auto"
 	ontoggle={update_shadows}
 	class={[
-		'absolute box-content max-h-64 min-w-32 translate-x-1 rounded-md border shadow-md orient-horizontal place-right-middle',
+		'absolute box-content max-h-64 min-w-32 translate-x-1 rounded-md border shadow-md orient-h place-right-middle',
 		clsx(class_),
 	]}
 	{...rest}>
@@ -35,13 +35,13 @@
 	</div>
 	<div
 		class={[
-			'pointer-events-none absolute inset-x-0 top-0 h-6 bg-linear-to-b from-background/90 to-transparent',
+			'pointer-events-none absolute inset-x-0 top-0 h-6 bg-linear-to-b from-bg/90 to-transparent',
 			at_top ? 'hidden' : '',
 		]}>
 	</div>
 	<div
 		class={[
-			'pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-linear-to-t from-background/90 to-transparent',
+			'pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-linear-to-t from-bg/90 to-transparent',
 			at_bottom ? 'hidden' : '',
 		]}>
 	</div>

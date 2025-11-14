@@ -1,7 +1,7 @@
 class Tooltip_manager {
 	show_timer?: number
 	cooldown_timer?: number
-	delay = 400
+	delay = 500
 
 	enter(show_tooltip: () => void) {
 		if (this.cooldown_timer !== undefined) {

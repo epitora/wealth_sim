@@ -22,7 +22,7 @@
 <button
 	class={[
 		'grid size-8 place-content-center rounded-md border hover:bg-accent',
-		pressed ? '' : 'text-muted-foreground',
+		pressed ? '' : 'text-muted',
 		clsx(class_),
 	]}
 	onpointerdown={toggle}

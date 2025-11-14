@@ -37,7 +37,7 @@
 		id={tooltip_id}
 		popover="auto"
 		class={[
-			'pointer-events-none absolute place-bottom-right max-w-34 -translate-x-2.5 translate-y-1 rounded-sm bg-primary px-2.5 py-1.5 text-xs text-primary-foreground shadow-md',
+			'pointer-events-none absolute place-bottom-right max-w-34 -translate-x-2.5 translate-y-1 rounded-sm bg-fg px-2.5 py-1.5 text-sm text-bg shadow-md',
 			has_tooltip ? '' : 'hidden',
 		]}>
 		{description}

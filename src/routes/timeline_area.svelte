@@ -15,7 +15,7 @@
 				end_year - start_year < 20 || year % 5 === 0 || year === start_year || year === end_year}
 			<div class="group relative flex h-full min-w-4 grow flex-col items-center hover:bg-accent">
 				<div
-					class="absolute top-0 w-10 origin-top-right -translate-x-[calc(50%+0.5rem)] -rotate-90 text-center font-mono text-xs text-muted-foreground group-hover:text-foreground"
+					class="absolute top-0 w-10 origin-top-right -translate-x-[calc(50%+0.5rem)] -rotate-90 text-center font-mono text-xs text-muted group-hover:text-foreground"
 				>
 					<span class={{ 'absolute inset-0 group-hover:block': true, 'hidden': !show_year }}>
 						{year}

@@ -19,7 +19,7 @@
 	onpointerup={select}
 	class={[
 		'relative flex w-full items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 hover:bg-accent',
-		active ? '' : 'text-muted-foreground',
+		active ? '' : 'text-muted',
 		clsx(class_),
 	]}
 	{...rest}>

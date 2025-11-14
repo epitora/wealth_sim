@@ -14,7 +14,7 @@
 </script>
 
 <button
-	class={['group grid size-8 place-content-center rounded-md text-muted-foreground hover:bg-accent', clsx(class_)]}
+	class={['group grid size-8 place-content-center rounded-md text-muted hover:bg-accent', clsx(class_)]}
 	onpointerdown={on_click}
 	{...rest}>
 	<Icon class="text-current" />
