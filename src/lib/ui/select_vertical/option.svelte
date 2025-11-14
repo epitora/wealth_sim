@@ -18,12 +18,11 @@
 <button
 	onpointerup={select}
 	class={[
-		'relative flex w-full items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm hover:bg-accent',
+		'relative flex w-full items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 hover:bg-accent',
 		active ? '' : 'text-muted-foreground',
 		clsx(class_),
 	]}
-	{...rest}
->
-	<Check_icon class={['absolute right-2 size-4', active ? '' : 'hidden']} />
+	{...rest}>
+	<Check_icon class={['absolute right-2', active ? '' : 'hidden']} />
 	{label}
 </button>

@@ -16,14 +16,11 @@
 	onpointerdown={() => context.set_value(value)}
 	data-active={active}
 	class={[
-		'flex grow items-center justify-center gap-2 rounded-md border pt-2.5 pb-2 text-sm font-normal hover:bg-accent',
-		active
-			? 'w-8.5 rounded-r-none border-r-0 border-border pr-0.75'
-			: 'w-8 border-transparent text-muted-foreground',
+		'flex grow items-center box-content justify-center gap-2 rounded-md border border-r-0 hover:bg-accent',
+		active ? 'w-9 -ml-0.5 rounded-r-none border-border' : 'w-8 border-transparent text-muted-foreground',
 		clsx(class_),
 	]}
-	{...rest}
->
-	<Icon class="size-4" />
+	{...rest}>
+	<Icon />
 	{label}
 </button>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import clsx from 'clsx'
 	import { type Field_props } from './shared.js'
-	import { tooltip_manager } from '$lib/data/tooltip_manager.js'
+	import { tooltip_manager } from '$lib/data/manage_tooltip.js'
 
 	let { label, description, children, class: class_, ...rest }: Field_props = $props()
 
@@ -22,15 +22,14 @@
 	}
 </script>
 
-<div class={['relative flex w-full items-center justify-between gap-3', clsx(class_)]} {...rest}>
+<div class={['flex w-full items-center justify-between gap-3', clsx(class_)]} {...rest}>
 	<button
 		bind:this={trigger}
 		popovertarget={tooltip_id}
 		onclick={(e) => e.preventDefault()}
 		onpointerenter={on_enter}
 		onpointerleave={on_leave}
-		class={['flex gap-2 text-sm position-bottom-right', has_tooltip ? 'hover:underline' : '']}
-	>
+		class={['flex gap-2', has_tooltip ? 'hover:underline' : '']}>
 		{label}
 	</button>
 	<div
@@ -38,10 +37,9 @@
 		id={tooltip_id}
 		popover="auto"
 		class={[
-			'pointer-events-none absolute max-w-34 -translate-x-2.5 translate-y-1 rounded-sm bg-primary px-2.5 py-1.5 text-xs text-primary-foreground shadow-md',
+			'pointer-events-none absolute place-bottom-right max-w-34 -translate-x-2.5 translate-y-1 rounded-sm bg-primary px-2.5 py-1.5 text-xs text-primary-foreground shadow-md',
 			has_tooltip ? '' : 'hidden',
-		]}
-	>
+		]}>
 		{description}
 	</div>
 	{@render children()}

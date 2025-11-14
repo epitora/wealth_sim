@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
 
 @font-face {
 	font-family: 'Inter_sans';
@@ -96,10 +95,13 @@
 
 @layer base {
 	* {
-		@apply border-border outline-ring/50 select-none selection:bg-yellow-200 selection:text-black;
+		@apply border-border outline-none select-none selection:bg-yellow-200 selection:text-black;
 	}
 	body {
-		@apply bg-background text-foreground;
+		@apply text-sm bg-background text-foreground;
+	}
+	.lucide {
+		@apply size-4;
 	}
 }
 
@@ -111,14 +113,14 @@
 	writing-mode: sideways-lr;
 }
 
-@utility position-bottom-middle {
+@utility place-bottom-middle {
 	position-area: bottom span-all;
 }
 
-@utility position-bottom-right {
+@utility place-bottom-right {
 	position-area: bottom span-right;
 }
 
-@utility position-right-middle {
+@utility place-right-middle {
 	position-area: right span-all;
 }

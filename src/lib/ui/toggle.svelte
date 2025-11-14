@@ -26,7 +26,6 @@
 		clsx(class_),
 	]}
 	onpointerdown={toggle}
-	{...rest}
->
-	<Icon class="size-4 text-current" />
+	{...rest}>
+	<Icon class="text-current" />
 </button>

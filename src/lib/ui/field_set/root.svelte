@@ -6,6 +6,6 @@
 </script>
 
 <div class={['flex w-64 flex-col gap-2', clsx(class_)]} {...rest}>
-	<div class="mb-1 font-medium">{heading}</div>
+	<div class="mb-1 font-medium text-base">{heading}</div>
 	{@render children()}
 </div>

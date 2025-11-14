@@ -34,18 +34,17 @@
 
 <div class="flex h-full">
 	<div class="relative flex flex-row-reverse border-r orient-vertical">
-		<div class="flex flex-1 shrink-0 items-center text-sm whitespace-nowrap">
+		<Toggle
+			bind:pressed={p.compare}
+			class="absolute inset-y-0 top-0 rounded-none border-0 border-b"
+			Icon={Scale_icon} />
+		<div class="flex flex-1 shrink-0 items-center whitespace-nowrap">
 			<div class="mb-3">Life Events</div>
 		</div>
 		{@render Strategy_select('first_id')}
 		{#if p.compare}
 			{@render Strategy_select('second_id')}
 		{/if}
-		<Toggle
-			bind:pressed={p.compare}
-			class="absolute inset-y-0 top-0 rounded-none border-0 border-b"
-			Icon={Scale_icon}
-		/>
 	</div>
 	<Timeline_area />
 </div>

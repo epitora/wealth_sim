@@ -7,8 +7,8 @@
 	const context = get_context()
 
 	let viewport = $state<HTMLElement>()
-	let at_top = $state(false)
-	let at_bottom = $state(false)
+	let at_top = $state(true)
+	let at_bottom = $state(true)
 
 	function update_shadows() {
 		if (viewport !== undefined) {
@@ -23,28 +23,26 @@
 	popover="auto"
 	ontoggle={update_shadows}
 	class={[
-		'absolute box-content max-h-64 min-w-32 translate-x-1 rounded-md border shadow-md orient-horizontal position-right-middle',
+		'absolute box-content max-h-64 min-w-32 translate-x-1 rounded-md border shadow-md orient-horizontal place-right-middle',
 		clsx(class_),
 	]}
-	{...rest}
->
+	{...rest}>
 	<div
 		bind:this={viewport}
 		onscroll={update_shadows}
-		class={['max-h-64 w-full overflow-y-auto p-0.5 [&::-webkit-scrollbar]:hidden']}
-	>
+		class={['max-h-64 w-full overflow-y-auto p-0.5 [&::-webkit-scrollbar]:hidden']}>
 		{@render children()}
 	</div>
 	<div
 		class={[
 			'pointer-events-none absolute inset-x-0 top-0 h-6 bg-linear-to-b from-background/90 to-transparent',
 			at_top ? 'hidden' : '',
-		]}
-	></div>
+		]}>
+	</div>
 	<div
 		class={[
 			'pointer-events-none absolute inset-x-0 bottom-0 h-6 bg-linear-to-t from-background/90 to-transparent',
 			at_bottom ? 'hidden' : '',
-		]}
-	></div>
+		]}>
+	</div>
 </div>

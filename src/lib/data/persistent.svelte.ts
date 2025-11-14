@@ -1,8 +1,8 @@
 import LZString from 'lz-string'
 import * as z from 'zod'
-import { toast } from 'svelte-sonner'
 import { page } from '$app/state'
 import { goto } from '$app/navigation'
+import { alert_manager } from './manage_alert.svelte'
 
 export class Persistent<Schema extends z.ZodDefault> {
 	schema: Schema
@@ -19,10 +19,9 @@ export class Persistent<Schema extends z.ZodDefault> {
 				this.data = this.schema.parse(raw_data)
 			} catch (e) {
 				console.error(e)
-				setTimeout(() =>
-					toast.error(`Unable to load configuration`, {
-						description: `The link appears to be corrupted. Loading default configuration instead.`,
-					}),
+				alert_manager.show(
+					`Unable to load configuration`,
+					`The link appears to be corrupted. Loading default configuration instead.`
 				)
 			}
 		}

@@ -1,7 +1,7 @@
 class Tooltip_manager {
-	show_timer?: number = undefined
-	cooldown_timer?: number = undefined
-	delay = 500
+	show_timer?: number
+	cooldown_timer?: number
+	delay = 400
 
 	enter(show_tooltip: () => void) {
 		if (this.cooldown_timer !== undefined) {
@@ -21,8 +21,10 @@ class Tooltip_manager {
 			clearTimeout(this.show_timer)
 			this.show_timer = undefined
 		} else {
-			hide_tooltip()
-			this.cooldown_timer = setTimeout(() => (this.cooldown_timer = undefined), this.delay)
+			this.cooldown_timer = setTimeout(() => {
+				this.cooldown_timer = undefined
+				hide_tooltip()
+			}, this.delay)
 		}
 	}
 }

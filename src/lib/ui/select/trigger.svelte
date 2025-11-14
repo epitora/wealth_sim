@@ -21,11 +21,10 @@
 	onclick={(e) => e.preventDefault()}
 	onpointerdown={toggle_menu}
 	class={[
-		'relative flex h-8 w-full items-center gap-2 rounded-md border pr-9 pl-3 text-sm whitespace-nowrap hover:bg-accent',
+		'relative flex h-8 w-full items-center gap-2 rounded-md border pr-9 pl-3 whitespace-nowrap hover:bg-accent',
 		clsx(class_),
 	]}
-	{...rest}
->
+	{...rest}>
 	{label}
-	<Chevron_down_icon class="pointer-events-none absolute right-3 size-4  text-muted-foreground" />
+	<Chevron_down_icon class="pointer-events-none absolute right-3 text-muted-foreground" />
 </button>
