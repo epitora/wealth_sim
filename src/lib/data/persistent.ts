@@ -20,7 +20,7 @@ const version_schema = z.literal(version_options)
 export type Strategy = z.infer<typeof strategy_schema>
 const strategy_schema = z.strictObject({
 	id: strategy_id_schema,
-	label: z.string().max(20)
+	label: z.string().max(20),
 })
 
 export type Strategy_config = z.infer<typeof strategy_config_schema>
@@ -28,16 +28,15 @@ const strategy_config_schema = z
 	.strictObject({
 		list: z.array(strategy_schema).min(1).max(4),
 		first_id: strategy_id_schema,
-		second_id: strategy_id_schema.optional(),
-		compare: z.boolean()
+		second_id: strategy_id_schema,
+		compare: z.boolean(),
 	})
 	.refine((d) => {
 		const ids = d.list.map((s) => s.id)
 		const strategies_valid = ids.length === new Set(ids).size
 		const strategy_1_valid = ids.includes(d.first_id)
-		const strategy_2_valid = d.second_id === undefined || (ids.includes(d.second_id) && d.second_id !== d.first_id)
-		const expanded_valid = !d.compare || (d.compare && d.second_id !== undefined)
-		return strategies_valid && strategy_1_valid && strategy_2_valid && expanded_valid
+		const strategy_2_valid = ids.includes(d.second_id) && d.second_id !== d.first_id
+		return strategies_valid && strategy_1_valid && strategy_2_valid
 	})
 
 export type Year = (typeof year_options)[number]
@@ -79,7 +78,7 @@ const simulation_config_schema = z
 	.strictObject({
 		this_year: year_schema,
 		end_year: year_schema,
-		age_scale: z.boolean()
+		age_scale: z.boolean(),
 	})
 	.refine((d) => {
 		const years_valid = d.end_year > d.this_year
@@ -89,12 +88,12 @@ const simulation_config_schema = z
 export type Birth_date = z.infer<typeof birth_date_schema>
 const birth_date_schema = z.strictObject({
 	year: birth_year_schema,
-	month: month_schema
+	month: month_schema,
 })
 
 export type Client_config = z.infer<typeof simulation_config_schema>
 const client_config_schema = z.strictObject({
-	birth_date: birth_date_schema.optional()
+	birth_date: birth_date_schema.optional(),
 })
 
 export const schema = z
@@ -103,7 +102,7 @@ export const schema = z
 		tab_id: tab_id_schema,
 		strategy: strategy_config_schema,
 		simulation: simulation_config_schema,
-		client: client_config_schema
+		client: client_config_schema,
 	})
 	.refine((d) => {
 		const age_scale_valid = d.simulation.age_scale === false || d.client.birth_date !== undefined
@@ -113,16 +112,22 @@ export const schema = z
 		version: 1,
 		tab_id: 'timeline',
 		strategy: {
-			list: [{ id: 'a', label: 'Strategy A' }],
+			list: [
+				{ id: 'a', label: 'Strategy A' },
+				{ id: 'b', label: 'Strategy B' },
+				{ id: 'c', label: 'Strategy C' },
+				{ id: 'd', label: 'Strategy D' },
+			],
 			first_id: 'a',
-			compare: false
+			second_id: 'b',
+			compare: false,
 		},
 		simulation: {
 			this_year: 2025,
 			end_year: 2099,
-			age_scale: false
+			age_scale: false,
 		},
-		client: {}
+		client: {},
 	})
 
 export const persistent = new Persistent<typeof schema>(schema)

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import clsx from 'clsx'
 	import { get_context, type Trigger_props } from './shared.js'
-	import Chevron_down_icon from '@lucide/svelte/icons/chevron-down'
+	import Chevron_right_icon from '@lucide/svelte/icons/chevron-right'
 
 	let { label, class: class_, ...rest }: Trigger_props = $props()
 
@@ -21,11 +21,11 @@
 	onclick={(e) => e.preventDefault()}
 	onpointerdown={toggle_menu}
 	class={[
-		'relative flex h-8 w-full items-center gap-2 rounded-md border pr-9 pl-3 text-sm whitespace-nowrap hover:bg-accent',
+		'relative flex h-full w-8 flex-col items-start justify-center gap-2 rounded-md border pt-9 pb-3 text-sm whitespace-nowrap orient-vertical hover:bg-accent',
 		clsx(class_),
 	]}
 	{...rest}
 >
 	{label}
-	<Chevron_down_icon class="pointer-events-none absolute right-3 size-4  text-muted-foreground" />
+	<Chevron_right_icon class="pointer-events-none absolute top-3 size-4 text-muted-foreground" />
 </button>

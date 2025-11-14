@@ -1,19 +1,18 @@
 <script lang="ts">
 	import '../app.css'
 	import { persistent } from '$lib/data/persistent'
-	import { Toaster } from '$lib/components/ui/sonner/index.js'
-	import LoaderCircleIcon from '@lucide/svelte/icons/loader-circle'
-	import InfoIcon from '@lucide/svelte/icons/info'
-	import CircleCheckIcon from '@lucide/svelte/icons/circle-check'
-	import TriangleAlertIcon from '@lucide/svelte/icons/triangle-alert'
-	import CircleAlertIcon from '@lucide/svelte/icons/circle-alert'
-	import Button from '$lib/components/ui/button/button.svelte'
+	import Loader_circle_icon from '@lucide/svelte/icons/loader-circle'
+	import Info_icon from '@lucide/svelte/icons/info'
+	import Circle_check_icon from '@lucide/svelte/icons/circle-check'
+	import Triangle_alert_icon from '@lucide/svelte/icons/triangle-alert'
+	import Circle_alert_icon from '@lucide/svelte/icons/circle-alert'
 
 	let { children } = $props()
 
 	persistent.init()
 </script>
 
+<!-- 
 <Toaster
 	theme="light"
 	position="top-center"
@@ -47,7 +46,7 @@
 	{#snippet errorIcon()}
 		<CircleAlertIcon class="size-4" />
 	{/snippet}
-</Toaster>
+</Toaster> -->
 
 <div class="relative m-auto flex h-screen max-w-7xl flex-col gap-2 overflow-hidden p-2">
 	{@render children()}

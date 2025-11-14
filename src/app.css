@@ -102,3 +102,23 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+@utility orient-horizontal {
+	writing-mode: initial;
+}
+
+@utility orient-vertical {
+	writing-mode: sideways-lr;
+}
+
+@utility position-bottom-middle {
+	position-area: bottom span-all;
+}
+
+@utility position-bottom-right {
+	position-area: bottom span-right;
+}
+
+@utility position-right-middle {
+	position-area: right span-all;
+}

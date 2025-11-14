@@ -21,8 +21,8 @@ export class Persistent<Schema extends z.ZodDefault> {
 				console.error(e)
 				setTimeout(() =>
 					toast.error(`Unable to load configuration`, {
-						description: `The link appears to be corrupted. Loading default configuration instead.`
-					})
+						description: `The link appears to be corrupted. Loading default configuration instead.`,
+					}),
 				)
 			}
 		}

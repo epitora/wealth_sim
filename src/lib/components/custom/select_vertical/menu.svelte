@@ -23,7 +23,7 @@
 	popover="auto"
 	ontoggle={update_shadows}
 	class={[
-		'absolute box-content max-h-64 translate-y-1 rounded-md border shadow-md position-bottom-middle',
+		'absolute box-content max-h-64 min-w-32 translate-x-1 rounded-md border shadow-md orient-horizontal position-right-middle',
 		clsx(class_),
 	]}
 	{...rest}

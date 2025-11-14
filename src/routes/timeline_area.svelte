@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js'
 	import { persistent } from '$lib/data/persistent'
 
@@ -17,12 +17,10 @@
 				<div
 					class="absolute top-0 w-10 origin-top-right -translate-x-[calc(50%+0.5rem)] -rotate-90 text-center font-mono text-xs text-muted-foreground group-hover:text-foreground"
 				>
-					<span class={{ 'absolute inset-0 transition-none group-hover:block': true, 'hidden': !show_year }}>
+					<span class={{ 'absolute inset-0 group-hover:block': true, 'hidden': !show_year }}>
 						{year}
 					</span>
-					<span class={{ 'absolute inset-0 transition-none group-hover:hidden': true, 'hidden': show_year }}>
-						•
-					</span>
+					<span class={{ 'absolute inset-0 group-hover:hidden': true, 'hidden': show_year }}>•</span>
 				</div>
 				<div class="flex-1"></div>
 				<div class="flex-1 border-t"></div>
@@ -30,4 +28,4 @@
 			</div>
 		{/each}
 	</div>
-</ScrollArea>
+</ScrollArea> -->

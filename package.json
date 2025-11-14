@@ -17,7 +17,7 @@
 		"tailwindFunctions": ["cn", "clsx"],
 		"tailwindPreserveWhitespace": false,
 		"semi": false,
-		"trailingComma": "es5",
+		"trailingComma": "all",
 		"singleQuote": true,
 		"jsxSingleQuote": true,
 		"htmlWhitespaceSensitivity": "ignore",
