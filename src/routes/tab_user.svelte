@@ -1,9 +1,9 @@
 <script lang="ts">
 	import * as Select from '$lib/ui/select'
 	import * as Form from '$lib/ui/field_set'
-	import { persistent, birth_year_options, month_options, type Month } from '$lib/data/persistent'
+	import { perm, birth_year_options, month_options, type Month } from '$lib/data/perm'
 
-	const p = persistent.data.client
+	const user = perm.data.u
 
 	const month_names: Record<Month, string> = {
 		0: 'January',
@@ -24,8 +24,8 @@
 <div class="px-5.5 py-4">
 	<Form.Root heading="Biographical facts">
 		<Form.Field label="Birth year">
-			<Select.Root class="w-32" bind:value={p.birth_year}>
-				<Select.Trigger label={p.birth_year.toString()} />
+			<Select.Root class="w-32" bind:value={user.y}>
+				<Select.Trigger label={user.y.toString()} />
 				<Select.Menu class="w-32">
 					{#each birth_year_options as year}
 						<Select.Option value={year} label={year.toString()} />
@@ -34,8 +34,8 @@
 			</Select.Root>
 		</Form.Field>
 		<Form.Field label="Birth month">
-			<Select.Root class="w-32" bind:value={p.birth_month}>
-				<Select.Trigger label={month_names[p.birth_month]} />
+			<Select.Root class="w-32" bind:value={user.m}>
+				<Select.Trigger label={month_names[user.m]} />
 				<Select.Menu class="w-32">
 					{#each month_options as month}
 						<Select.Option value={month} label={month_names[month]} />

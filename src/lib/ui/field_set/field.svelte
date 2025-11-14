@@ -1,7 +1,7 @@
 <script lang="ts">
 	import clsx from 'clsx'
 	import { type Field_props } from './shared.js'
-	import { tooltip_manager } from '$lib/data/manage_tooltip.js'
+	import { field_tip_manager } from '$lib/data/tooltip.js'
 
 	let { label, description, children, class: class_, ...rest }: Field_props = $props()
 
@@ -14,11 +14,11 @@
 
 	function on_enter() {
 		// @ts-ignore new api
-		tooltip_manager.enter(() => tooltip.showPopover({ source: trigger }))
+		field_tip_manager.enter(() => tooltip.showPopover({ source: trigger }))
 	}
 
 	function on_leave() {
-		tooltip_manager.leave(() => tooltip.hidePopover())
+		field_tip_manager.leave(() => tooltip.hidePopover())
 	}
 </script>
 

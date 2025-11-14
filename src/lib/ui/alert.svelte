@@ -1,7 +1,7 @@
 <script lang="ts">
 	import clsx from 'clsx'
 	import { type Merge } from '$lib/utils.js'
-	import { alert_manager } from '$lib/data/manage_alert.svelte'
+	import { alert_manager } from '$lib/data/alert.svelte'
 
 	type Props = Merge<{}, HTMLDivElement>
 	let { class: class_, ...rest }: Props = $props()

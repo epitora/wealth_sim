@@ -2,13 +2,13 @@ import LZString from 'lz-string'
 import * as z from 'zod'
 import { page } from '$app/state'
 import { goto } from '$app/navigation'
-import { alert_manager } from './manage_alert.svelte'
+import { alert_manager } from './alert.svelte'
 
-export class Persistent<Schema extends z.ZodDefault> {
-	schema: Schema
-	data: z.infer<Schema> = $state()!
+export class Perm<T extends z.ZodDefault> {
+	schema: T
+	data: z.infer<T> = $state()!
 
-	constructor(schema: Schema) {
+	constructor(schema: T) {
 		this.schema = schema
 	}
 

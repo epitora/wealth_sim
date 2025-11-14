@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { persistent, type Tab_id } from '$lib/data/persistent'
+	import { perm, type Page_id } from '$lib/data/perm'
 	import type { Icon } from '@lucide/svelte'
 	import type { Component } from 'svelte'
 	import Circle_dollar_sign_icon from '@lucide/svelte/icons/circle-dollar-sign'
@@ -7,61 +7,60 @@
 	import Trending_up_icon from '@lucide/svelte/icons/trending-up'
 	import Bolt_icon from '@lucide/svelte/icons/bolt'
 	import World from '../tab_world.svelte'
-	import Client from '../tab_client.svelte'
+	import User from '../tab_user.svelte'
 	import Timeline from '../tab_timeline.svelte'
 	import Simulation from '../tab_simulation.svelte'
 	import * as Tabbed from '$lib/ui/tabbed_vertical'
 
-	type Tab = {
-		id: Tab_id
+	type Page = {
+		id: Page_id
 		name: string
 		Icon: typeof Icon
-		Page: Component
+		Content: Component
 	}
 
-	const tabs: Tab[] = [
+	const pages: Page[] = [
 		{
-			id: 'world',
+			id: 'w',
 			name: 'World',
 			Icon: Circle_dollar_sign_icon,
-			Page: World,
+			Content: World,
 		},
 		{
-			id: 'client',
-			name: 'Client',
+			id: 'u',
+			name: 'User',
 			Icon: Person_standing_icon,
-			Page: Client,
+			Content: User,
 		},
 		{
-			id: 'timeline',
+			id: 't',
 			name: 'Timeline',
 			Icon: Trending_up_icon,
-			Page: Timeline,
+			Content: Timeline,
 		},
 		{
-			id: 'simulation',
+			id: 's',
 			name: 'Config',
 			Icon: Bolt_icon,
-			Page: Simulation,
+			Content: Simulation,
 		},
 	]
 
-	const p = persistent.data
-	const active_tab = $derived(tabs.find((t) => t.id === p.tab_id)!)
+	const active_page = $derived(pages.find((p) => p.id === perm.data.p)!)
 </script>
 
-<Tabbed.Root bind:value={persistent.data.tab_id} class="h-120">
+<Tabbed.Root bind:value={perm.data.p} class="h-120">
 	<Tabbed.Menu>
-		{#each tabs as tab}
-			<Tabbed.Option value={tab.id} label={tab.name} Icon={tab.Icon} />
+		{#each pages as page}
+			<Tabbed.Option value={page.id} label={page.name} Icon={page.Icon} />
 		{/each}
 	</Tabbed.Menu>
 	<Tabbed.Window
 		class={[
-			p.tab_id === tabs[0].id ? 'rounded-tl-none' : '',
-			p.tab_id === tabs[tabs.length - 1].id ? 'rounded-bl-none' : '',
+			perm.data.p === pages[0].id ? 'rounded-tl-none' : '',
+			perm.data.p === pages[pages.length - 1].id ? 'rounded-bl-none' : '',
 		]}>
-		<active_tab.Page />
+		<active_page.Content />
 	</Tabbed.Window>
 </Tabbed.Root>
 <div class="border rounded-lg grow"></div>

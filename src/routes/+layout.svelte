@@ -1,11 +1,11 @@
 <script lang="ts">
 	import '../app.css'
-	import { persistent } from '$lib/data/persistent'
+	import { perm } from '$lib/data/perm'
 	import Alert from '$lib/ui/alert.svelte'
 
 	let { children } = $props()
 
-	persistent.init()
+	perm.init()
 </script>
 
 <Alert />

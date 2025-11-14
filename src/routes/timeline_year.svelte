@@ -1,32 +1,33 @@
 <script lang="ts">
 	import clsx from 'clsx'
 	import { type Merge } from '$lib/utils.js'
-	import { persistent } from '$lib/data/persistent'
+	import { perm } from '$lib/data/perm'
+	import { temp } from '$lib/data/temp.svelte'
 	import Plus_icon from '@lucide/svelte/icons/plus'
 
 	type Props = Merge<{ year: number }, HTMLDivElement>
 	let { year, class: class_, ...rest }: Props = $props()
 
-	const p = persistent.data.simulation
-	const age = year - persistent.data.client.birth_year
+	const simulation = perm.data.s
+	const timeline = perm.data.t
+	const hovered = $derived(temp.data.hovered_year === year)
 
-	const show_any = p.end_year - p.start_year < 20 || year === p.start_year || year === p.end_year
-	const metric = p.age_metric ? age : year
-	const show_label = show_any || metric % 5 < 1
+	const age = year - perm.data.u.y
+	const metric = simulation.a ? age : year
+	const show_label_always =
+		simulation.e - simulation.s < 25 || year === simulation.s || year === simulation.e || metric % 5 === 0
+	const show_label = $derived(show_label_always || hovered)
 </script>
 
 <div class={['group relative flex min-w-5 grow flex-col', clsx(class_)]} {...rest}>
 	<div
 		class={[
-			'absolute top-0 right-0 mx-auto w-full orient-v font-mono text-sm text-muted group-hover:text-fg',
-			p.age_metric ? 'h-6' : 'h-10',
+			'absolute top-0 right-0 mx-auto w-full orient-v font-mono text-sm text-muted',
+			hovered ? 'text-fg' : '',
+			simulation.a ? 'h-6' : 'h-10',
 		]}>
-		<div class={['absolute inset-0 grid place-content-center group-hover:hidden', show_label ? 'hidden' : '']}>
-			•
-		</div>
-		<div class={['absolute inset-0 grid place-content-center group-hover:grid', show_label ? '' : 'hidden']}>
-			{metric}
-		</div>
+		<div class={['absolute inset-0 grid place-content-center', show_label ? 'hidden' : '']}>•</div>
+		<div class={['absolute inset-0 grid place-content-center', show_label ? '' : 'hidden']}>{metric}</div>
 	</div>
 	<div class="flex-1 flex">
 		<button class={['bg-accent rounded-sm my-0.5 w-full not-group-hover:hidden']}>
@@ -38,10 +39,9 @@
 			<Plus_icon class="text-muted" />
 		</button>
 	</div>
-	<div class={['flex-1 border-t flex', persistent.data.strategy.compare ? '' : 'hidden']}>
+	<div class={['flex-1 border-t flex', timeline.c ? '' : 'hidden']}>
 		<button class={['hover:bg-accent rounded-sm my-0.5 w-full bg-error-accent']}>
 			<Plus_icon class="text-muted" />
 		</button>
 	</div>
 </div>
-<!-- a single cursor that moves bw the three rows and many columns -->

@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { persistent } from '$lib/data/persistent'
+	import { perm } from '$lib/data/perm'
 	import { onMount } from 'svelte'
 	import Timeline_year from './timeline_year.svelte'
 
-	const p = persistent.data.simulation
+	const simulation = perm.data.s
 
 	let viewport = $state<HTMLElement>()!
 	let at_start = $state(true)
@@ -27,8 +27,8 @@
 		bind:this={viewport}
 		onscroll={update_shadows}
 		onwheel={scroll_horizontal}>
-		{#each Array.from({ length: p.end_year - p.start_year + 1 }) as _, index}
-			<Timeline_year year={p.start_year + index} />
+		{#each Array.from({ length: simulation.e - simulation.s + 1 }) as _, index}
+			<Timeline_year year={simulation.s + index} />
 		{/each}
 	</div>
 	<div
