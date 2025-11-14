@@ -96,7 +96,7 @@
 
 @layer base {
 	* {
-		@apply border-border outline-ring/50 selection:bg-yellow-200 selection:text-black;
+		@apply border-border outline-ring/50 select-none selection:bg-yellow-200 selection:text-black;
 	}
 	body {
 		@apply bg-background text-foreground;

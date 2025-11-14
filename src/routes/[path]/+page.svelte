@@ -10,7 +10,7 @@
 	import Client from '../tab_client.svelte'
 	import Timeline from '../tab_timeline.svelte'
 	import Simulation from '../tab_simulation.svelte'
-	import * as Tabbed from '$lib/components/custom/tabbed_vertical'
+	import * as Tabbed from '$lib/ui/tabbed_vertical'
 
 	type Tab = {
 		id: Tab_id

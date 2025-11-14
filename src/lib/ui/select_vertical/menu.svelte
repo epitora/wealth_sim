@@ -31,7 +31,7 @@
 	<div
 		bind:this={viewport}
 		onscroll={update_shadows}
-		class={['flex max-h-64 w-full flex-col gap-0.5 overflow-y-auto p-0.5 [&::-webkit-scrollbar]:hidden']}
+		class={['max-h-64 w-full overflow-y-auto p-0.5 [&::-webkit-scrollbar]:hidden']}
 	>
 		{@render children()}
 	</div>

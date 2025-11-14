@@ -18,7 +18,7 @@
 	class={[
 		'flex grow items-center justify-center gap-2 rounded-md border pt-2.5 pb-2 text-sm font-normal hover:bg-accent',
 		active
-			? 'w-8.5 rounded-r-none border-r-0 border-border bg-accent pr-0.75'
+			? 'w-8.5 rounded-r-none border-r-0 border-border pr-0.75'
 			: 'w-8 border-transparent text-muted-foreground',
 		clsx(class_),
 	]}

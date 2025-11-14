@@ -1,0 +1,19 @@
+{
+    "plugins": ["prettier-plugin-svelte", "prettier-plugin-tailwindcss"],
+    "tailwindStylesheet": "./src/app.css",
+    "tailwindFunctions": ["cn", "clsx"],
+    "tailwindPreserveWhitespace": false,
+    "semi": false,
+    "trailingComma": "all",
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "htmlWhitespaceSensitivity": "ignore",
+    "useTabs": true,
+    "tabWidth": 4,
+    "printWidth": 120,
+    "svelteStrictMode": true,
+    "svelteIndentScriptAndStyle": true,
+    "svelteAllowShorthand": false,
+    "svelteBracketNewLine": true,
+    "quoteProps": "consistent"
+}

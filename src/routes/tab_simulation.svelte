@@ -1,7 +1,7 @@
 <script lang="ts">
-	import * as Select from '$lib/components/custom/select'
-	import * as Segment from '$lib/components/custom/select_segment'
-	import * as Form from '$lib/components/custom/field_set'
+	import * as Select from '$lib/ui/select'
+	import * as Segment from '$lib/ui/select_segment'
+	import * as Form from '$lib/ui/field_set'
 	import { persistent, year_options } from '$lib/data/persistent'
 
 	const p = persistent.data.simulation

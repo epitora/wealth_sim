@@ -1,6 +1,6 @@
 <script lang="ts">
-	import * as Select from '$lib/components/custom/select_vertical'
-	import Toggle from '$lib/components/custom/toggle.svelte'
+	import * as Select from '$lib/ui/select_vertical'
+	import Toggle from '$lib/ui/toggle.svelte'
 	import type { Strategy_config, Strategy_id } from '$lib/data/persistent'
 	import { persistent } from '$lib/data/persistent'
 	import Scale_icon from '@lucide/svelte/icons/scale'
