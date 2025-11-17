@@ -33,7 +33,7 @@
 
 	function toggle_menu() {
 		// @ts-ignore new api
-		setTimeout(() => menu.togglePopover({ source: trigger }))
+		menu.togglePopover({ source: trigger })
 	}
 </script>
 

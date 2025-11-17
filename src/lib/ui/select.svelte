@@ -4,6 +4,7 @@
 	import Scroll_area from './scroll-area.svelte'
 	import Check_icon from '@lucide/svelte/icons/check'
 	import Chevron_down_icon from '@lucide/svelte/icons/chevron-down'
+	import type { Scroll_id } from '$lib/data/schema'
 
 	type Props = Merge<
 		{
@@ -11,10 +12,11 @@
 			values: readonly V[]
 			labels?: Record<V, string>
 			on_change?: (value: V) => void
+			scroll_id?: Scroll_id
 		},
 		HTMLDivElement
 	>
-	let { value = $bindable(), values, labels, on_change, class: class_, ...rest }: Props = $props()
+	let { value = $bindable(), values, labels, on_change, scroll_id, class: class_, ...rest }: Props = $props()
 
 	let trigger = $state<HTMLButtonElement>()!
 	let menu = $state<HTMLDivElement>()!
@@ -49,8 +51,8 @@
 		bind:this={menu}
 		id={menu_id}
 		popover="auto"
-		class="relative translate-y-4 h-256 border rounded-md shadow-md place-bottom-middle">
-		<Scroll_area class="p-2">
+		class="translate-y-4 shadow-md border rounded-md place-bottom-middle">
+		<Scroll_area scroll_id={scroll_id} class="h-256">
 			{#each values as option_value}
 				{@const selected = option_value === value}
 				<button

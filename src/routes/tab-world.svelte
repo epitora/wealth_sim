@@ -13,14 +13,4 @@
 			<Segments bind:value={db.s.w.y} values={current_year_options} />
 		</Field>
 	</Field_set>
-	<Scroll_area class="border rounded-md" direction="v" scroll_id="a">
-		{#each Array.from({ length: 200 }) as _, index}
-			Index {index}
-		{/each}
-	</Scroll_area>
-	<Scroll_area class="border rounded-md" direction="h" scroll_id="b">
-		{#each Array.from({ length: 200 }) as _, index}
-			Index {index}
-		{/each}
-	</Scroll_area>
 </div>

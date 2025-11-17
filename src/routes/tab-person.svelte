@@ -9,7 +9,7 @@
 <div class="px-22 py-16">
 	<Field_set heading="Biographical facts">
 		<Field label="Birth year">
-			<Select bind:value={db.s.p.b} values={birth_year_options} />
+			<Select bind:value={db.s.p.b} values={birth_year_options} scroll_id={1} />
 		</Field>
 	</Field_set>
 </div>

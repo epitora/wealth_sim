@@ -19,7 +19,7 @@
 	<div class="font-bold mb-1">{alert_manager.title}</div>
 	<div>{alert_manager.description}</div>
 </div>
-<div class="relative flex h-dvh flex-col gap-32 p-8">
+<div class="relative flex h-dvh flex-col gap-8 p-8">
 	{@render children()}
 	<footer class="absolute right-16 bottom-12 z-10 mt-auto text-right text-sm text-muted/50">
 		Wealth Sim v{VERSION} by

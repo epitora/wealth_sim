@@ -28,7 +28,7 @@
 			class="absolute inset-y-0 top-0 rounded-none border-0"
 			icons={{ 0: Rows_2_icon, 1: Rows_3_icon }} />
 		<div class="flex flex-4 shrink-0 items-center whitespace-nowrap">
-			<div class="mb-3">Life Events</div>
+			<div class="mb-12">Life Events</div>
 		</div>
 		<Strategy_select class="flex-1" bind:value={db.s.t.a} on_change={(id) => update_b(id as Strategy_id)} />
 		{#if db.s.t.c}

@@ -15,7 +15,7 @@ export const page_id_options = ['w', 'p', 't', 's'] as const
 const page_id_schema = z.literal(page_id_options)
 
 export type Scroll_id = z.infer<typeof scroll_id_schema>
-export const scroll_id_options = ['a', 'b', 'c', 'd', 'e'] as const
+export const scroll_id_options = [0, 1, 2] as const
 const scroll_id_schema = z.literal(scroll_id_options)
 
 export type Time_reference = z.infer<typeof time_reference_schema>
@@ -29,7 +29,7 @@ export type Ui_schema = z.infer<typeof simulation_schema>
 const ui_schema = z.strictObject({
 	p: page_id_schema,
 	r: time_reference_schema,
-	s: z.record(scroll_id_schema, z.number()),
+	s: z.array(z.number()),
 })
 
 export type Current_year = z.infer<typeof birth_year_schema>
@@ -114,13 +114,7 @@ export const schema = z
 		u: {
 			p: 'w',
 			r: 'y',
-			s: {
-				a: 0,
-				b: 0,
-				c: 0,
-				d: 0,
-				e: 0,
-			},
+			s: new Array(scroll_id_options.length).fill(0),
 		},
 		w: {
 			y: 2025,
