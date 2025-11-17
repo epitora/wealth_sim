@@ -11,13 +11,13 @@
 		@apply hidden;
 	}
 	.lucide {
-		@apply size-4;
+		@apply size-16;
 	}
 }
 
 @font-face {
 	font-family: 'Inter_sans';
-	src: url('/Inter_sans[opsz,wght].ttf') format('truetype');
+	src: url('/inter-sans[opsz,wght].ttf') format('truetype');
 	font-weight: 100 900;
 	font-style: normal;
 	font-display: block;
@@ -25,7 +25,7 @@
 
 @font-face {
 	font-family: 'Roboto_mono';
-	src: url('/Roboto_mono[wght].ttf') format('truetype');
+	src: url('/roboto-mono[wght].ttf') format('truetype');
 	font-weight: 200 600;
 	font-style: normal;
 	font-display: block;
@@ -50,19 +50,17 @@
 	--error-border: oklch(91.042% 0.04485 14.475);
 	--error-accent: oklch(96.941% 0.01515 12.013);
 
-	--chart-1: oklch(0.646 0.222 41.116);
-	--chart-2: oklch(0.6 0.118 184.704);
-	--chart-3: oklch(0.398 0.07 227.392);
-	--chart-4: oklch(0.828 0.189 84.429);
+	--chart-o: oklch(70.297% 0.18326 50.968);
+	--chart-y: oklch(87.3% 0.17854 92.233);
+	--chart-g: oklch(0.6 0.118 184.704);
+	--chart-b: oklch(56.638% 0.18398 256.231);
+	--chart-p: oklch(60.033% 0.24729 345.401);
 }
 
 @theme {
 	--*: initial;
 
-	--spacing: 0.25rem;
-
-	--container-sm: 8rem; /* field width */
-	--container-md: 24rem; /* dialog width */
+	--spacing: 0.0625rem;
 
 	--radius-sm: calc(var(--radius) - 2px);
 	--radius-md: var(--radius);
@@ -97,11 +95,11 @@
 	--color-error-border: var(--error-border);
 	--color-error-accent: var(--error-accent);
 
-	--color-chart-1: var(--chart-1);
-	--color-chart-2: var(--chart-2);
-	--color-chart-3: var(--chart-3);
-	--color-chart-4: var(--chart-4);
-	--color-chart-5: var(--chart-5);
+	--color-chart-o: var(--chart-o);
+	--color-chart-y: var(--chart-y);
+	--color-chart-g: var(--chart-g);
+	--color-chart-b: var(--chart-b);
+	--color-chart-p: var(--chart-p);
 
 	--animate-spin: spin 1s linear infinite;
 
@@ -130,4 +128,8 @@
 
 @utility place-right-middle {
 	position-area: right span-all;
+}
+
+@utility delay-hide {
+	@apply transition-discrete transition-[display] delay-500;
 }
