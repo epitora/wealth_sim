@@ -38,7 +38,7 @@ export class Db<Schema extends z.ZodDefault> {
 				this.timer = setTimeout(() => {
 					if (path && path !== this.saved_path) {
 						this.saved_path = path
-						goto(`/wealth_sim/?c=${path}`, { replaceState: true, keepFocus: true })
+						goto(`/wealth_sim?c=${path}`, { replaceState: true, keepFocus: true })
 						sim.simulate(data)
 					}
 				}, 1000)
