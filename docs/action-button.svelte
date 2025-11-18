@@ -16,25 +16,17 @@
 		},
 		HTMLButtonElement
 	>
-	let {
-		on_start,
-		Icon,
-		Success_icon = Circle_check_icon,
-		Fail_icon = Circle_x_icon,
-		class: class_,
-		...rest
-	}: Props = $props()
+	let { on_start, Icon, Success_icon = Circle_check_icon, Fail_icon = Circle_x_icon, class: class_ }: Props = $props()
 
 	// idle, loading,
 	type Status = 0 | 1 | 2 | 3
 	let status = $state(0)
 
-	function on_click() {}
+	const on_click = () => {}
 </script>
 
 <button
-	class={['group grid size-32 place-content-center rounded-md text-muted hover:bg-accent', clsx(class_)]}
-	onpointerdown={on_click}
-	{...rest}>
-	<Icon class="text-current" />
+	class={['grid size-32 place-content-center rounded-md text-muted hover:bg-accent', clsx(class_)]}
+	onpointerdown={on_click}>
+	<Icon />
 </button>

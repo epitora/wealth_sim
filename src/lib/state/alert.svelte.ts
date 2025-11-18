@@ -1,7 +1,5 @@
 class Alert_manager {
-	open = $state(false)
-	title = $state<string>()
-	description = $state<string>()
+	s = $state<{ title: string; description: string }>()
 	timer: number | undefined
 
 	constructor(
@@ -10,13 +8,11 @@ class Alert_manager {
 	) {}
 
 	notify(title: string, description: string) {
-		this.open = true
-		this.title = title
-		this.description = description
+		this.s = { title, description }
 
 		clearTimeout(this.timer)
 		this.timer = setTimeout(() => {
-			this.open = false
+			this.s = undefined
 			this.timer = undefined
 		}, this.duration)
 	}
@@ -28,8 +24,8 @@ class Alert_manager {
 
 	leave() {
 		clearTimeout(this.timer)
-		setTimeout(() => {
-			this.open = false
+		this.timer = setTimeout(() => {
+			this.s = undefined
 			this.timer = undefined
 		}, this.dismiss_delay)
 	}

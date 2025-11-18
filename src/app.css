@@ -5,13 +5,17 @@
 		@apply border-border outline-none;
 	}
 	body {
-		@apply font-sans text-md bg-bg text-fg selection:bg-highlight selection:text-fg;
+		@apply font-sans text-md bg-bg text-fg select-none selection:bg-highlight selection:text-fg;
 	}
 	::-webkit-scrollbar {
 		@apply hidden;
 	}
 	.lucide {
-		@apply size-16;
+		@apply size-16 text-current;
+	}
+	input[type='number']::-webkit-inner-spin-button,
+	input[type='number']::-webkit-outer-spin-button {
+		-webkit-appearance: none;
 	}
 }
 
@@ -38,10 +42,10 @@
 	--mono: 'Roboto_mono', ui-monospace;
 
 	--bg: oklch(1 0 0);
-	--highlight: oklch(0.945 0.129 101.54);
+	--highlight: oklch(84.567% 0.0767 259.48);
 
 	--fg: oklch(0.145 0 0);
-	--muted: oklch(0.68 0 0);
+	--muted: oklch(0.7 0 0);
 	--border: oklch(0.922 0 0);
 	--accent: oklch(0.97 0 0);
 
@@ -52,7 +56,7 @@
 
 	--chart-o: oklch(70.297% 0.18326 50.968);
 	--chart-y: oklch(87.3% 0.17854 92.233);
-	--chart-g: oklch(0.6 0.118 184.704);
+	--chart-g: oklch(65.027% 0.18283 148.924);
 	--chart-b: oklch(56.638% 0.18398 256.231);
 	--chart-p: oklch(60.033% 0.24729 345.401);
 }
@@ -62,7 +66,7 @@
 
 	--spacing: 0.0625rem;
 
-	--radius-sm: calc(var(--radius) - 2px);
+	/* --radius-sm: calc(var(--radius) - 2px); */
 	--radius-md: var(--radius);
 	--radius-lg: calc(var(--radius) + 2px);
 

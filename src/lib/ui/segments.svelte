@@ -1,36 +1,29 @@
 <script lang="ts" generics="V extends Value">
-	import clsx from 'clsx'
-	import type { Merge, Value } from '$lib/utils.js'
+	import clsx, { type ClassValue } from 'clsx'
+	import type { Value } from '$lib/utils.js'
 
-	type Props = Merge<
-		{
-			value: V
-			values: readonly V[]
-			labels?: Record<V, string>
-			on_change?: (value: V) => void
-		},
-		HTMLDivElement
-	>
-	let { value = $bindable(), values, labels, on_change, class: class_, ...rest }: Props = $props()
+	type Props = {
+		value: V
+		values: readonly V[]
+		labels?: Record<V, string>
+		unit?: string
+		class?: ClassValue
+	}
+	let { value = $bindable(), values, labels, unit, class: class_ }: Props = $props()
 
-	function select(new_value: V) {
-		if (value !== new_value) {
-			value = new_value
-			on_change?.(new_value)
-		}
+	const select = (new_value: V) => {
+		if (new_value !== value) value = new_value
 	}
 </script>
 
-<div class={['flex h-32 overflow-hidden rounded-md border p-2', clsx(class_)]} {...rest}>
+<div class={['flex h-32 rounded-md border min-w-80 overflow-hidden', clsx(class_)]}>
 	{#each values as option_value}
 		{@const selected = option_value === value}
 		<button
 			onpointerdown={() => select(option_value)}
-			class={[
-				'flex flex-4 items-center justify-center gap-6 rounded-sm px-8 py-4 whitespace-nowrap hover:bg-accent',
-				selected ? '' : 'text-muted',
-			]}>
+			class={['grid place-content-center px-8 whitespace-nowrap', selected ? '' : 'text-muted hover:bg-accent']}>
 			{labels?.[option_value] ?? option_value}
+			{selected ? unit : ''}
 		</button>
 	{/each}
 </div>

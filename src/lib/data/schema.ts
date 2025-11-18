@@ -11,7 +11,7 @@ export const version_options = ['0.1'] as const
 const version_schema = z.literal(version_options)
 
 export type Page_id = z.infer<typeof page_id_schema>
-export const page_id_options = ['w', 'p', 't', 's'] as const
+export const page_id_options = ['c', 't', 's'] as const
 const page_id_schema = z.literal(page_id_options)
 
 export type Scroll_id = z.infer<typeof scroll_id_schema>
@@ -22,6 +22,8 @@ export type Time_reference = z.infer<typeof time_reference_schema>
 export const time_reference_options = ['y', 'a', 'i'] as const
 const time_reference_schema = z.literal(time_reference_options)
 
+const scroll_value_schema = z.number().min(0)
+
 // state that the simulation does not depend on
 // simulation never re-runs when changes are made here
 // all state that has this property must be moved here
@@ -29,15 +31,7 @@ export type Ui_schema = z.infer<typeof simulation_schema>
 const ui_schema = z.strictObject({
 	p: page_id_schema,
 	r: time_reference_schema,
-	s: z.array(z.number()),
-})
-
-export type Current_year = z.infer<typeof birth_year_schema>
-export const current_year_options = [2025, 2026] as const
-const current_year_schema = z.literal(current_year_options)
-export type World = z.infer<typeof world_schema>
-const world_schema = z.strictObject({
-	y: current_year_schema,
+	s: z.array(scroll_value_schema),
 })
 
 export type Birth_year = z.infer<typeof birth_year_schema>
@@ -49,9 +43,18 @@ export const birth_year_options = [
 ] as const
 const birth_year_schema = z.literal(birth_year_options)
 
-export type Person = z.infer<typeof person_schema>
-const person_schema = z.strictObject({
+const net_worth_schema = z.number().int()
+const inflation_rate_schema = z.number().min(0).max(10)
+
+export type Current_year = z.infer<typeof birth_year_schema>
+export const current_year_options = [2025, 2026] as const
+const current_year_schema = z.literal(current_year_options)
+export type Context = z.infer<typeof context_schema>
+const context_schema = z.strictObject({
+	y: current_year_schema,
 	b: birth_year_schema,
+	w: net_worth_schema,
+	i: inflation_rate_schema,
 })
 
 export type Color = z.infer<typeof color_schema>
@@ -63,10 +66,12 @@ export type Strategy_id = z.infer<typeof strategy_id_schema>
 export const strategy_id_options = ['a', 'b', 'c', 'd'] as const
 const strategy_id_schema = z.literal(strategy_id_options)
 
+const strategy_label_schema = z.string().nonempty().max(20)
+
 export type Strategy = z.infer<typeof strategy_schema>
 const strategy_schema = z.strictObject({
 	i: strategy_id_schema,
-	l: z.string().max(20),
+	l: strategy_label_schema,
 	c: color_schema,
 })
 
@@ -104,23 +109,22 @@ export const schema = z
 	.strictObject({
 		v: version_schema,
 		u: ui_schema,
-		w: world_schema,
-		p: person_schema,
+		c: context_schema,
 		t: timeline_schema,
 		s: simulation_schema,
 	})
 	.default({
 		v: VERSION,
 		u: {
-			p: 'w',
+			p: 'c',
 			r: 'y',
 			s: new Array(scroll_id_options.length).fill(0),
 		},
-		w: {
+		c: {
 			y: 2025,
-		},
-		p: {
 			b: 2000,
+			w: 10000,
+			i: 2,
 		},
 		t: {
 			s: [
@@ -134,7 +138,7 @@ export const schema = z
 			c: 0,
 		},
 		s: {
-			h: 25,
+			h: 50,
 			r: 1,
 		},
 	})

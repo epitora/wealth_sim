@@ -1,16 +1,15 @@
 <script lang="ts">
-	import clsx from 'clsx'
-	import type { Merge } from '$lib/utils.js'
+	import clsx, { type ClassValue } from 'clsx'
 	import { onMount, type Snippet } from 'svelte'
 	import type { Scroll_id } from '$lib/data/schema'
 	import { db } from '$lib/state/db.svelte'
 
-	type Props = Merge<{ direction?: 'v' | 'h'; scroll_id?: Scroll_id; children: Snippet }, HTMLDivElement>
-	let { direction = 'v', scroll_id, children, class: class_, ...rest }: Props = $props()
+	type Props = { direction?: 'v' | 'h'; scroll_id?: Scroll_id; children: Snippet; class?: ClassValue }
+	let { direction = 'v', scroll_id, children, class: class_ }: Props = $props()
 
 	const v = direction === 'v'
 
-	let viewport = $state<HTMLDivElement>()!
+	let view: HTMLDivElement
 	let view_size = $state<number>(1) // arbitrary finite value
 	let scroll_size = $state<number>(1) // arbitrary finite value
 	let scroll_start = $state<number>(0)
@@ -21,43 +20,37 @@
 	let percent_end = $derived(100 * (1 - (scroll_start + view_size) / scroll_size))
 
 	onMount(() => {
-		if (scroll_id) {
-			scroll_start = db.s.u.s[scroll_id]
-		}
+		if (scroll_id) scroll_start = db.s.u.s[scroll_id]
 		const observer = new ResizeObserver(update_size)
-		observer.observe(viewport)
-		return () => {
-			observer.disconnect()
+		observer.observe(view) // changes to view_size
+		for (const child of view.children) {
+			observer.observe(child) // changes to scroll_size
 		}
+		return () => observer.disconnect()
 	})
 
-	function update_size() {
-		viewport[v ? 'scrollTop' : 'scrollLeft'] = scroll_start
-		view_size = v ? viewport.clientHeight : viewport.clientWidth
-		scroll_size = v ? viewport.scrollHeight : viewport.scrollWidth
+	const update_size = () => {
+		view[v ? 'scrollTop' : 'scrollLeft'] = scroll_start
+		view_size = v ? view.clientHeight : view.clientWidth
+		scroll_size = v ? view.scrollHeight : view.scrollWidth
 	}
 
-	function on_scroll() {
-		scroll_start = v ? viewport.scrollTop : viewport.scrollLeft
-		if (scroll_id) {
-			db.s.u.s[scroll_id] = Math.round(scroll_start)
-		}
+	const on_scroll = () => {
+		scroll_start = v ? view.scrollTop : view.scrollLeft
+		if (scroll_id) db.s.u.s[scroll_id] = Math.round(scroll_start)
 	}
 
-	function on_wheel(event: WheelEvent) {
-		if (!v && event.deltaY) {
-			viewport.scrollLeft += event.deltaY
-		}
+	const on_wheel = (event: WheelEvent) => {
+		if (!v && event.deltaY) view.scrollLeft += event.deltaY
 	}
 </script>
 
-<div class={['relative group overflow-hidden', clsx(class_)]}>
+<div class={['relative group/scroll overflow-hidden', clsx(class_)]}>
 	<div
-		bind:this={viewport}
+		bind:this={view}
 		onscroll={on_scroll}
 		onwheel={on_wheel}
-		class={['p-2', v ? 'h-full overflow-y-scroll' : 'w-full overflow-x-scroll']}
-		{...rest}>
+		class={['flex w-full h-full', v ? 'flex-col overflow-y-scroll' : 'flex-row overflow-x-scroll']}>
 		{@render children()}
 	</div>
 	<div
@@ -76,7 +69,7 @@
 	</div>
 	<div
 		class={[
-			'pointer-events-none absolute not-group-hover:hidden delay-hide',
+			'pointer-events-none absolute not-group-hover/scroll:hidden delay-hide',
 			v ? 'right-1 inset-y-0 w-2' : 'bottom-1 inset-x-0 h-2',
 			at_start && at_end ? 'hidden' : '',
 		]}>

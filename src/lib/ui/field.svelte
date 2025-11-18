@@ -1,47 +1,45 @@
 <script lang="ts">
-	import clsx from 'clsx'
+	import clsx, { type ClassValue } from 'clsx'
 	import type { Snippet } from 'svelte'
-	import type { Merge } from '$lib/utils.js'
 	import { tooltip_manager } from '$lib/state/tooltip.js'
 
-	type Props = Merge<{ label: string; description?: string; children: Snippet }, HTMLDivElement>
-	let { label, description, children, class: class_, ...rest }: Props = $props()
+	type Props = { label: string; description?: string; children: Snippet; class?: ClassValue }
+	let { label, description, children, class: class_ }: Props = $props()
 
-	let tooltip = $state<HTMLDivElement>()!
-	let trigger = $state<HTMLButtonElement>()!
+	let tooltip: HTMLDivElement
+	let trigger: HTMLButtonElement
 
 	const uid = $props.id()
-	const tooltip_id = `${uid}_tooltip`
-	const has_tooltip = description !== undefined
+	const tooltip_id = `${uid}-tooltip`
 
-	function on_enter() {
+	const on_enter = () => {
 		// @ts-ignore new api
 		tooltip_manager.interact(() => tooltip.showPopover({ source: trigger }))
 	}
 
-	function on_leave() {
+	const on_leave = () => {
 		tooltip_manager.leave(() => tooltip.hidePopover())
 	}
 </script>
 
-<div class={['flex w-full items-center justify-between gap-2', clsx(class_)]} {...rest}>
+<div class={['flex w-full items-center justify-between gap-8', clsx(class_)]}>
 	<button
 		bind:this={trigger}
 		popovertarget={tooltip_id}
 		onclick={(e) => e.preventDefault()}
 		onpointerenter={on_enter}
 		onpointerleave={on_leave}
-		class={['flex gap-32 whitespace-nowrap', has_tooltip ? 'hover:underline' : '']}>
+		class={['whitespace-nowrap', description ? 'hover:underline' : '']}>
 		{label}
 	</button>
-	<!-- <div class="border-t grow -mr-2"></div> -->
+	<!-- <div class="border-t grow -mr-8"></div> -->
 	<div
 		bind:this={tooltip}
 		id={tooltip_id}
 		popover="auto"
 		class={[
-			'pointer-events-none absolute place-bottom-right max-w-160 -translate-x-10 translate-y-4 rounded-sm bg-fg px-10 py-8 text-sm text-bg shadow-md',
-			has_tooltip ? '' : 'hidden',
+			'pointer-events-none absolute place-bottom-right max-w-160 -translate-x-10 translate-y-4 rounded-md bg-fg px-10 py-8 text-sm text-bg shadow-md',
+			description ? '' : 'hidden',
 		]}>
 		{description}
 	</div>
