@@ -16,9 +16,11 @@ export class Db<Schema extends z.ZodDefault> {
 	}
 
 	init() {
-		if (page.params.path !== undefined) {
+		const url = new URL(window.location.href)
+		const c = url.searchParams.get('c')
+		if (c) {
 			try {
-				const raw_data = this.decode(page.params.path)
+				const raw_data = this.decode(c)
 				this.s = this.schema.parse(raw_data)
 			} catch (error) {
 				console.error(error)
@@ -36,7 +38,7 @@ export class Db<Schema extends z.ZodDefault> {
 				this.timer = setTimeout(() => {
 					if (path && path !== this.saved_path) {
 						this.saved_path = path
-						goto(path, { replaceState: true, keepFocus: true })
+						goto(`/?c=${path}`, { replaceState: true, keepFocus: true })
 						sim.simulate(data)
 					}
 				}, 1000)

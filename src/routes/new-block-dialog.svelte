@@ -78,7 +78,7 @@
 </script>
 
 {#if config}
-	<div class="fixed backdrop-blur-md inset-0">
+	<div class="fixed backdrop-blur-md inset-0 z-50">
 		<Field_set
 			class="absolute border rounded-lg shadow-md inset-x-0 mx-auto top-100 w-400! bg-bg"
 			heading={`Create new block`}>

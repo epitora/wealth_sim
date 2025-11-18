@@ -11,6 +11,7 @@
 		...sim.data_b?.map((r) => ({ key: 'b', ...r })),
 	])
 	const scenarios = $derived({ a: db.s.t.s[db.s.t.a], b: db.s.t.s[db.s.t.b] })
+	const force = 'bg-chart-o bg-chart-b bg-chart-g bg-chart-p'
 </script>
 
 <div class={['relative border rounded-lg grow']}>
@@ -35,7 +36,7 @@
 						<Axis placement="left" grid rule />
 						<Axis placement="bottom" rule />
 						{#each Object.entries({ a: sim.data_a, b: sim.data_b }) as [key, data]}
-							{@const color = `var(--color-chart-${scenarios[key as 'a' | 'b'].c}`}
+							{@const color = `var(--color-chart-${scenarios[key].c})`}
 							<Area
 								data={data}
 								fill={color}
