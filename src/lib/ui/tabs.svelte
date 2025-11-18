@@ -1,11 +1,19 @@
 <script lang="ts" generics="V extends Value">
 	import clsx, { type ClassValue } from 'clsx'
-	import type { Page, Value } from '$lib/utils.js'
+	import type { Value } from '$lib/utils.js'
+	import type { Icon as Icon_ } from '@lucide/svelte'
+	import type { Component } from 'svelte'
 
-	type Props = { value: V; values: readonly V[]; pages: Record<V, Page>; class?: ClassValue }
-	let { value = $bindable(), values, pages, class: class_ }: Props = $props()
+	type Props = {
+		value: V
+		options: readonly V[]
+		labcons: Record<V, { label: string; Icon: typeof Icon_ }>
+		pages: Record<V, Component>
+		class?: ClassValue
+	}
+	let { value = $bindable(), options, labcons, pages, class: class_ }: Props = $props()
 
-	const page = $derived(pages[value])
+	const Page = $derived(pages[value])
 
 	const select = (new_value: V) => {
 		if (new_value !== value) value = new_value
@@ -14,9 +22,9 @@
 
 <div class={['flex', clsx(class_)]}>
 	<div class={['flex flex-row-reverse gap-2 orient-v']}>
-		{#each values as option_value}
+		{#each options as option_value}
 			{@const active = option_value === value}
-			{@const option_page = pages[option_value]}
+			{@const labcon = labcons[option_value]}
 			<button
 				onpointerdown={() => select(option_value)}
 				class={[
@@ -25,17 +33,17 @@
 						'rounded-lg w-36 -ml-2 rounded-r-none border-border'
 					:	'rounded-md w-32 border-transparent text-muted hover:bg-accent',
 				]}>
-				<option_page.Icon />
-				{option_page.name}
+				<labcon.Icon />
+				{labcon.label}
 			</button>
 		{/each}
 	</div>
 	<div
 		class={[
 			'w-full overflow-hidden rounded-lg border',
-			value === values[0] ? 'rounded-tl-none' : '',
-			// value === values[values.length - 1] ? 'rounded-bl-none' : '',
+			value === options[0] ? 'rounded-tl-none' : '',
+			// value === options[options.length - 1] ? 'rounded-bl-none' : '',
 		]}>
-		<page.Content />
+		<Page />
 	</div>
 </div>

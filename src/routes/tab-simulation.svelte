@@ -6,11 +6,11 @@
 	import { db } from '$lib/state/db.svelte'
 </script>
 
-<Field_set heading="Simulation settings">
+<Field_set heading="Settings">
 	<Field label="Horizon" description="Time length simulated into the future">
-		<Segments bind:value={db.s.s.h} values={horizon_options} unit="year" />
+		<Segments bind:value={db.s.s.h} options={horizon_options} unit="year" />
 	</Field>
 	<Field label="Resolution" description="Simulated time step">
-		<Segments bind:value={db.s.s.r} values={resolution_options} unit="month" />
+		<Segments bind:value={db.s.s.r} options={resolution_options} unit="month" />
 	</Field>
 </Field_set>

@@ -15,18 +15,20 @@
 	const label = $derived({ y: year - 2000, a: age, i: index }[db.s.u.r])
 
 	const show_label_always = db.s.s.h < 25 || first || last
-	const show_label = $derived(show_label_always || label % 5 === 0 || hovered)
+
+	const not_empty = (obj: object) => obj !== undefined && Object.keys(obj).length !== 0
+	const has_content = $derived(not_empty(db.s.t.s[db.s.t.a].b[year]) || not_empty(db.s.t.s[db.s.t.b].b[year]))
+	const show_label = $derived(show_label_always || label % 5 === 0 || hovered || has_content)
 </script>
 
 <div
 	onpointerenter={() => (global.hovered_timeline_index = index)}
 	onpointerleave={() => (global.hovered_timeline_index = undefined)}
-	class={['grid grow', db.s.t.c ? 'grid-rows-[2rem_1fr_1fr_1fr]' : 'grid-rows-[2rem_1fr_1fr]']}>
-	<div class={['relative orient-v font-mono text-sm', hovered ? 'text-fg' : 'text-muted']}>
+	class={['w-auto grow']}>
+	<div class={['relative orient-v font-mono text-sm h-32 w-full', hovered ? 'text-fg' : 'text-muted']}>
 		<div class={['absolute inset-0 place-content-center', show_label ? 'hidden' : 'grid']}>•</div>
 		<div class={['absolute inset-0 place-content-center', show_label ? 'grid' : 'hidden']}>{label}</div>
 	</div>
-	<Timeline_cell index={index} class={['border-t']} />
-	<Timeline_cell index={index} class={['border-t']} />
-	<Timeline_cell index={index} class={['border-t', db.s.t.c ? '' : 'hidden']} />
+	<Timeline_cell year={year} scenario_id={db.s.t.a} class={['border-t']} />
+	<Timeline_cell year={year} scenario_id={db.s.t.b} class={['border-t']} />
 </div>

@@ -4,12 +4,12 @@
 
 	type Props = {
 		value: V
-		values: readonly V[]
+		options: readonly V[]
 		labels?: Record<V, string>
 		unit?: string
 		class?: ClassValue
 	}
-	let { value = $bindable(), values, labels, unit, class: class_ }: Props = $props()
+	let { value = $bindable(), options, labels, unit, class: class_ }: Props = $props()
 
 	const select = (new_value: V) => {
 		if (new_value !== value) value = new_value
@@ -17,7 +17,7 @@
 </script>
 
 <div class={['flex h-32 rounded-md border min-w-80 overflow-hidden', clsx(class_)]}>
-	{#each values as option_value}
+	{#each options as option_value}
 		{@const selected = option_value === value}
 		<button
 			onpointerdown={() => select(option_value)}

@@ -1,11 +1,17 @@
 <script lang="ts">
 	import clsx, { type ClassValue } from 'clsx'
 	import { clip } from '$lib/utils.js'
-	import Chevrons_left_right_icon from '@lucide/svelte/icons/chevrons-left-right'
+	import Chevron_left_right_icon from '@lucide/svelte/icons/chevrons-left-right'
 
-	type Props = { value: number; min?: number; max?: number; step?: number; suffix?: string; class?: ClassValue }
-	let { value = $bindable(), min = 0, max = 10, step = 1, suffix, class: class_ }: Props = $props()
+	type Props = {
+		value: number
+		bounds: readonly [number, number, number]
+		suffix?: string
+		class?: ClassValue
+	}
+	let { value = $bindable(), bounds, suffix, class: class_ }: Props = $props()
 
+	const [min, max, step] = bounds
 	const calc_value = (i: number) => min + i * step
 	const max_index = Math.round((max - min) / step)
 	const decimal_places = Math.ceil(-Math.log10(Math.min(step, 1)))
@@ -45,7 +51,7 @@
 	onpointerdown={start_drag}
 	style={`width: ${thumb_width + spacing * max_index + 32}px;`}
 	class={[
-		'pr-30 h-32 rounded-md border min-w-80 overflow-hidden relative ',
+		'h-32 pr-30 rounded-md border min-w-80 overflow-hidden relative ',
 		dragging ? 'bg-accent' : 'hover:bg-accent',
 		clsx(class_),
 	]}>
@@ -66,5 +72,5 @@
 			</div>
 		{/each}
 	</div>
-	<Chevrons_left_right_icon class="pointer-events-none absolute right-6 inset-y-0 my-auto text-muted" />
+	<Chevron_left_right_icon class="pointer-events-none absolute right-6 inset-y-0 my-auto text-muted" />
 </button>

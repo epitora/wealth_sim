@@ -4,8 +4,14 @@
 	import type { Scroll_id } from '$lib/data/schema'
 	import { db } from '$lib/state/db.svelte'
 
-	type Props = { direction?: 'v' | 'h'; scroll_id?: Scroll_id; children: Snippet; class?: ClassValue }
-	let { direction = 'v', scroll_id, children, class: class_ }: Props = $props()
+	type Props = {
+		direction?: 'v' | 'h'
+		scroll_id?: Scroll_id
+		children: Snippet
+		class?: ClassValue
+		inner_class?: ClassValue
+	}
+	let { direction = 'v', scroll_id, children, class: class_, inner_class }: Props = $props()
 
 	const v = direction === 'v'
 
@@ -50,7 +56,11 @@
 		bind:this={view}
 		onscroll={on_scroll}
 		onwheel={on_wheel}
-		class={['flex w-full h-full', v ? 'flex-col overflow-y-scroll' : 'flex-row overflow-x-scroll']}>
+		class={[
+			'flex w-full h-full',
+			v ? 'flex-col overflow-y-scroll' : 'flex-row overflow-x-scroll',
+			clsx(inner_class),
+		]}>
 		{@render children()}
 	</div>
 	<div

@@ -29,7 +29,7 @@
 		onclick={(e) => e.preventDefault()}
 		onpointerenter={on_enter}
 		onpointerleave={on_leave}
-		class={['whitespace-nowrap', description ? 'hover:underline' : '']}>
+		class={['whitespace-nowrap', description ? 'underline' : '']}>
 		{label}
 	</button>
 	<!-- <div class="border-t grow -mr-8"></div> -->

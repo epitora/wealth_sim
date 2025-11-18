@@ -5,18 +5,18 @@
 
 	type Props = {
 		value: V
-		values: readonly V[]
+		options: readonly V[]
 		icons: Record<V, typeof Icon_>
 		class?: ClassValue
 	}
-	let { value = $bindable(), values, icons, class: class_ }: Props = $props()
+	let { value = $bindable(), options, icons, class: class_ }: Props = $props()
 
 	const Icon = $derived(icons[value])
 
 	const cycle = () => {
-		const index = values.findIndex((x) => x === value)
-		const next_index = (index + 1) % values.length
-		value = values[next_index]
+		const index = options.findIndex((x) => x === value)
+		const next_index = (index + 1) % options.length
+		value = options[next_index]
 	}
 </script>
 

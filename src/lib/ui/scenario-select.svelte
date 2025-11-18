@@ -4,9 +4,9 @@
 	import Check_icon from '@lucide/svelte/icons/check'
 	import Chevron_right_icon from '@lucide/svelte/icons/chevron-right'
 	import { db } from '$lib/state/db.svelte'
-	import type { Strategy_id } from '$lib/data/schema'
+	import { scenario_id_options, scenario_labels, type Scenario_id } from '$lib/data/schema'
 
-	type Props = { value: Strategy_id; class?: ClassValue }
+	type Props = { value: Scenario_id; class?: ClassValue }
 	let { value = $bindable(), class: class_ }: Props = $props()
 
 	let trigger: HTMLButtonElement
@@ -14,9 +14,9 @@
 
 	const uid = $props.id()
 	const menu_id = `${uid}-menu`
-	const strategy = $derived(db.s.t.s.find((x) => x.i === value)!)
+	const scenario = $derived(db.s.t.s[value])
 
-	const select = (new_value: Strategy_id) => {
+	const select = (new_value: Scenario_id) => {
 		if (new_value === value) return
 		value = new_value
 		menu.hidePopover()
@@ -34,9 +34,9 @@
 		popovertarget={menu_id}
 		onclick={(e) => e.preventDefault()}
 		onpointerdown={toggle_menu}
-		class="relative flex h-full w-32 items-center gap-10 border-t pt-34 pb-10 whitespace-nowrap orient-v hover:bg-accent">
-		<div id="swatch" style="--color: var(--chart-{strategy.c})" class="size-8 rounded-full"></div>
-		{strategy.l}
+		class="relative flex h-full w-32 items-center justify-center gap-10 border-t pt-34 pb-10 whitespace-nowrap orient-v hover:bg-accent">
+		<div id="swatch" style="--color: var(--chart-{scenario.c})" class="size-8 rounded-full"></div>
+		{scenario_labels[value]}
 		<Chevron_right_icon class="pointer-events-none absolute top-6 text-muted" />
 	</button>
 	<div
@@ -45,16 +45,16 @@
 		popover="auto"
 		class={['translate-x-4 orient-h place-right-middle shadow-md rounded-md border']}>
 		<Scroll_area>
-			{#each db.s.t.s as option}
-				{@const selected = option.i === value}
+			{#each scenario_id_options as id}
+				{@const selected = id === value}
 				<button
-					onpointerdown={() => select(option.i)}
-					onpointerup={() => select(option.i)}
+					onpointerdown={() => select(id)}
+					onpointerup={() => select(id)}
 					class={[
 						'relative flex w-full items-center py-6 pr-32 pl-8',
 						selected ? '' : 'text-muted hover:bg-accent',
 					]}>
-					{option.l}
+					{scenario_labels[id]}
 					<Check_icon class={['absolute right-6', selected ? '' : 'hidden']} />
 				</button>
 			{/each}

@@ -3,7 +3,8 @@ import * as z from 'zod'
 import { page } from '$app/state'
 import { goto } from '$app/navigation'
 import { alert_manager } from './alert.svelte'
-import { schema } from '$lib/data/schema'
+import { db_schema } from '$lib/data/schema'
+import { sim } from './simulate.svelte'
 
 export class Db<Schema extends z.ZodDefault> {
 	s: z.infer<Schema>
@@ -36,9 +37,11 @@ export class Db<Schema extends z.ZodDefault> {
 					if (path && path !== this.saved_path) {
 						this.saved_path = path
 						goto(path, { replaceState: true, keepFocus: true })
+						sim.simulate(data)
 					}
 				}, 1000)
 			} catch (error) {
+				console.log('db.s', this.s)
 				console.error(error)
 			}
 		})
@@ -56,4 +59,4 @@ export class Db<Schema extends z.ZodDefault> {
 	}
 }
 
-export const db = new Db<typeof schema>(schema)
+export const db = new Db<typeof db_schema>(db_schema)

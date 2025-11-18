@@ -8,12 +8,12 @@
 
 	type Props = {
 		value: V
-		values: readonly V[]
+		options: readonly V[]
 		labels?: Record<V, string>
 		scroll_id?: Scroll_id
 		class?: ClassValue
 	}
-	let { value = $bindable(), values, labels, scroll_id, class: class_ }: Props = $props()
+	let { value = $bindable(), options, labels, scroll_id, class: class_ }: Props = $props()
 
 	let trigger: HTMLButtonElement
 	let menu: HTMLDivElement
@@ -48,7 +48,7 @@
 		popover="auto"
 		class="translate-y-4 min-w-80 shadow-md border rounded-md place-bottom-middle">
 		<Scroll_area scroll_id={scroll_id} class="h-256">
-			{#each values as option_value}
+			{#each options as option_value}
 				{@const selected = option_value === value}
 				<button
 					onpointerdown={() => select(option_value)}
