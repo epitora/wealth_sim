@@ -1,6 +1,7 @@
 <script lang="ts">
 	import clsx, { type ClassValue } from 'clsx'
 	import { clip } from '$lib/utils.js'
+	import Chevrons_left_right_icon from '@lucide/svelte/icons/chevrons-left-right'
 
 	type Props = { value: number; min?: number; max?: number; step?: number; suffix?: string; class?: ClassValue }
 	let { value = $bindable(), min = 0, max = 10, step = 1, suffix, class: class_ }: Props = $props()
@@ -14,7 +15,7 @@
 	let track_x: number
 	let thumb_width = $state<number>(0)
 	let dragging = $state(false)
-	const spacing = $derived(Math.max((160 - thumb_width) / max_index, 2))
+	const spacing = $derived(Math.max((120 - thumb_width) / max_index, 2))
 
 	const update_value = (client_x: number) => {
 		const relative_x = client_x - track_x - thumb_width / 2
@@ -42,20 +43,20 @@
 <button
 	bind:this={track}
 	onpointerdown={start_drag}
-	style={`width: ${thumb_width + spacing * max_index + 2}px; padding: 0 ${thumb_width / 2}px;`}
+	style={`width: ${thumb_width + spacing * max_index + 32}px;`}
 	class={[
-		' h-32 rounded-md border min-w-80 overflow-hidden relative ',
+		'pr-30 h-32 rounded-md border min-w-80 overflow-hidden relative ',
 		dragging ? 'bg-accent' : 'hover:bg-accent',
 		clsx(class_),
 	]}>
-	<div class="border-t"></div>
+	<div style={`margin: 0 ${thumb_width / 2}px;`} class="border-t"></div>
 	<div
 		bind:clientWidth={thumb_width}
 		style={`left: ${index * spacing}px;`}
 		class={[
-			'pointer-events-none absolute inset-y-0 grid bg-bg place-content-center px-8 h-full',
+			'pointer-events-none absolute inset-y-0 grid bg-bg place-content-center px-6 h-full border-r',
 			index === 0 ? '' : 'border-l',
-			index === max_index ? '' : 'border-r',
+			// index === max_index ? '' : 'border-r',
 		]}>
 		{#each Array.from({ length: max_index + 1 }) as _, option_index}
 			{@const selected = option_index === index}
@@ -65,4 +66,5 @@
 			</div>
 		{/each}
 	</div>
+	<Chevrons_left_right_icon class="pointer-events-none absolute right-6 inset-y-0 my-auto text-muted" />
 </button>

@@ -5,8 +5,7 @@
 	import Select from '$lib/ui/select.svelte'
 	import { birth_year_options, current_year_options } from '$lib/data/schema'
 	import { db } from '$lib/state/db.svelte'
-	import Input from '$lib/ui/input.svelte'
-	import Dollar_sign_icon from '@lucide/svelte/icons/dollar-sign'
+	import Currency_input from '$lib/ui/currency-input.svelte'
 	import Slider from '$lib/ui/slider.svelte'
 
 	const number_pattern = '[-+]?[0-9]{0,10}'
@@ -23,11 +22,6 @@
 		<Select bind:value={db.s.c.b} values={birth_year_options} scroll_id={1} />
 	</Field>
 	<Field label="Net worth">
-		<Input
-			bind:value={db.s.c.w}
-			alphabet="-+0-9"
-			pattern={number_pattern}
-			Icon={Dollar_sign_icon}
-			parse={(text: string) => (text === '+' || text === '-' ? 0 : Number(text))} />
+		<Currency_input bind:value={db.s.c.w} />
 	</Field>
 </Field_set>
