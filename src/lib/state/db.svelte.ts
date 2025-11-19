@@ -5,6 +5,7 @@ import { goto } from '$app/navigation'
 import { alert_manager } from './alert.svelte'
 import { db_schema } from '$lib/data/schema'
 import { sim } from './simulate.svelte'
+import { resolve } from '$app/paths'
 
 export class Db<Schema extends z.ZodDefault> {
 	s: z.infer<Schema>
@@ -38,7 +39,8 @@ export class Db<Schema extends z.ZodDefault> {
 				this.timer = setTimeout(() => {
 					if (path && path !== this.saved_path) {
 						this.saved_path = path
-						goto(`/wealth_sim?c=${path}`, { replaceState: true, keepFocus: true })
+						const base = resolve('/')
+						goto(`${base}?c=${path}`, { replaceState: true, keepFocus: true })
 						sim.simulate(data)
 					}
 				}, 1000)

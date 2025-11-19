@@ -10,6 +10,7 @@ const config = {
 	compilerOptions: {
 		runes: true,
 	},
+	paths: { base: process.env.NODE_ENV === 'production' ? '/wealth_sim' : '' },
 }
 
 export default config
